@@ -1,12 +1,25 @@
 {
-  "name": "application-name",
+  "name": "fco-services-node",
   "version": "0.0.1",
+  "license": "MIT",
+  "author": "Steve Laing <steve.laing@digital.cabinet-office.gov.uk>",
+  "description": "Start and done pages for FCO payment transactions - wrappers around Barclays.",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:alphagov/fco-services-node.git"
+  },
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "mocha -R spec test/"
   },
   "dependencies": {
     "express": "3.4.8",
     "ejs": "*"
+  },
+  "devDependencies": {
+    "request": "*",
+    "mocha": "*",
+    "should": "*"
   }
 }
