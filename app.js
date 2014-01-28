@@ -30,6 +30,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.get('/healthcheck', routes.healthcheck);
 
 module.exports = app;
 
