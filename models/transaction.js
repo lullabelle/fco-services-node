@@ -4,6 +4,7 @@ var Transaction = function(opts){
   var _self = this,
       attrs = ['slug', 'title', 'document_cost', 'postage_cost',
                'registration', 'account', 'document_types'];
+
   attrs.forEach(function(attr){
     _self[attr] = opts[attr];
   });

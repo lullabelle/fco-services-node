@@ -21,6 +21,7 @@
     "request": "*",
     "mocha": "*",
     "should": "*",
+    "sinon": "*",
     "supertest": "*"
   }
 }

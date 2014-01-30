@@ -31,6 +31,7 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/healthcheck', routes.healthcheck);
+app.get('/start', routes.epdq.middlewares, routes.epdq.start);
 
 module.exports = app;
 
