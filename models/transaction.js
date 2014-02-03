@@ -3,9 +3,9 @@ var fs = require('fs'),
 
 var Transaction = function(opts){
   var _self = this,
-      attrs = ['slug', 'title', 'document_cost', 'postage_cost',
-               'registration', 'account', 'document_types',
-               'allow_zero_document_count'];
+      attrs = ['slug', 'title', 'document_cost', 'document_types',
+               'postage_cost', 'registration', 'registration_cost',
+               'account', 'allow_zero_document_count'];
 
   attrs.forEach(function(attr){
     _self[attr] = opts[attr];

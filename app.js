@@ -33,6 +33,9 @@ app.get('/', routes.index);
 app.get('/healthcheck', routes.healthcheck);
 app.get('/start', routes.epdq.middlewares, routes.epdq.start);
 
+app.post('/confirm', routes.epdq.middleware.findTransaction, routes.epdq.confirm);
+app.get('/confirm', function(req, res){ res.redirect('/start') });
+
 module.exports = app;
 
 // Start the app if it's not being required as a module.
