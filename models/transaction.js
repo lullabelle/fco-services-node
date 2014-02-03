@@ -1,4 +1,5 @@
-var fs = require('fs');
+var fs = require('fs'),
+    TransactionCalculator = require('./../lib/transaction_calculator');
 
 var Transaction = function(opts){
   var _self = this,
@@ -11,12 +12,18 @@ var Transaction = function(opts){
   });
 };
 
+Transaction.PARAMPLUS_KEYS = ['document_count', 'postage', 'postage_option', 'registration_count'];
+
+Transaction.prototype.calculateTotal = function(values){
+  return new TransactionCalculator(this).calculate(values);
+};
+
 Transaction.find = function(id){
   if (transaction = Transaction.transactions()[id]){
     transaction['slug'] = id;
     return new Transaction(transaction);
   } else {
-    throw "Transaction not found" // TODO: Exception classes.
+    throw new Error("Transaction not found");
   }
 };
 
