@@ -7,10 +7,14 @@ var app = require('./../../app'),
     Transaction = require('./../../models/transaction');
 
 describe("epdq routes", function(){
+  before(function(){
+    sinon.spy(Response, 'render');
+  });
+  after(function(){
+    Response.render.restore();
+  });
   describe("start", function(){
     it("should find the appropriate transaction", function(done){
-
-      sinon.spy(Response, 'render');
 
       request(app)
         .get('/start')
@@ -23,9 +27,7 @@ describe("epdq routes", function(){
           renderArgs[0].should.equal('start');
           renderArgs[1].journeyDescription.should.equal('pay-register-death-abroad:start');
 
-          res.text.should.match(/pay-register-death-abroad:start/)
-
-          Response.render.restore();
+          res.text.should.match(/Payment to register a death abroad/)
 
           done();
         });
@@ -68,8 +70,6 @@ describe("epdq routes", function(){
     describe("given a zero document count", function(){
       it("should render the start template and assign an error", function(done){
 
-        sinon.spy(Response, 'render');
-
         request(app)
           .post('/confirm')
           .set('host','pay-foreign-marriage-certificates.gov.uk')
@@ -83,8 +83,6 @@ describe("epdq routes", function(){
             renderArgs[1].errors.should.equal('Invalid document count');
             renderArgs[1].journeyDescription.should.equal('pay-foreign-marriage-certificates:invalid_form');
 
-            Response.render.restore();
-
             done();
           });
 
@@ -93,8 +91,6 @@ describe("epdq routes", function(){
 
     describe("given an invalid document type", function(){
       it("should render the start template and assign an error", function(done){
-
-        sinon.spy(Response, 'render');
 
         request(app)
           .post('/confirm')
@@ -109,8 +105,6 @@ describe("epdq routes", function(){
             renderArgs[1].errors.should.equal('Invalid document type');
             renderArgs[1].journeyDescription.should.equal('pay-foreign-marriage-certificates:invalid_form');
 
-            Response.render.restore();
-
             done();
           });
 
@@ -120,8 +114,6 @@ describe("epdq routes", function(){
 
   describe("POST /confirm", function(){
     it("should use the post body to build an EPDQ.Request", function(done){
-
-      sinon.spy(Response, 'render');
 
       EPDQ.config.pspId = '5up3r53cr3t';
       EPDQ.config.shaIn = 'F4CC376CD7A834D997B91598FA747825A238BE0A';
@@ -157,8 +149,6 @@ describe("epdq routes", function(){
 
           renderArgs[1].journeyDescription.should.equal('pay-foreign-marriage-certificates:confirm');
 
-          Response.render.restore();
-
           done();
         });
     });
@@ -166,7 +156,6 @@ describe("epdq routes", function(){
 
   describe("with registration count", function(){
     it("should create an EPDQ Request with the correct amount", function(done){
-      sinon.spy(Response, 'render');
 
       EPDQ.config.pspId = '5up3r53cr3t';
       EPDQ.config.shaIn = 'F4CC376CD7A834D997B91598FA747825A238BE0A';
@@ -205,8 +194,6 @@ describe("epdq routes", function(){
           formAttrs['PSPID'].should.equal('5up3r53cr3t');
 
           renderArgs[1].journeyDescription.should.equal('pay-register-birth-abroad:confirm');
-
-          Response.render.restore();
 
           done();
         });
