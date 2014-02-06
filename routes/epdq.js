@@ -14,6 +14,8 @@ var findTransaction = function(req, res, next){
     transaction = Transaction.find(req.subdomains[0]);
   } catch(err) {
     res.status(404);
+    res.send('404 error');
+    return;
   }
   next();
 };
@@ -60,19 +62,28 @@ var buildEpdqRequest = function(req, transaction, totalCost){
 module.exports = {
   middleware : { setExpiry : setExpiry, findTransaction : findTransaction },
   middlewares : [ setExpiry, findTransaction ],
+
   start : function(req, res){
-    res.render('start', { journeyDescription : journeyDescription('start') });
+
+    res.render('start', { transaction : transaction,
+                          journeyDescription : journeyDescription('start') });
+
   },
+
   confirm : function(req, res){
     try {
+
       var calculation = transaction.calculateTotal(req.body['transaction']),
           epdqRequest = buildEpdqRequest(req, transaction, calculation.totalCost);
+
       res.render('confirm', { transaction: transaction, epdqRequest: epdqRequest,
                               journeyDescription: journeyDescription('confirm') });
+
     } catch(err) {
       res.render('start', { errors: err.message, journeyDescription: journeyDescription('invalid_form') });
     }
   },
+
   done : function(req, res){
   }
 };

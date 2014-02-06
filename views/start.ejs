@@ -1,1 +1,26 @@
-<%= journeyDescription %>
+<main id="content" role="main" class="group">
+
+  <header class="page-header group">
+    <div>
+      <h1><span>Service</span> <%= transaction.title %></h1>
+    </div>
+  </header>
+  <div class="article-container group">
+    <article role="article" class="group">
+      <div class="inner">
+        <form action="/confirm" method="post">
+        <% if (typeof errors != 'undefined'){ %>
+          <p class="error-message"><%= errors %></p>
+        <% } %>
+
+          <%- partial("partials/transactions/" + transaction.slug + "/intro") %>
+
+          <p id="get-started" class="get-started group">
+            <button class="button" type="submit" >Calculate total</button>
+          </p>
+        </form>
+      </div>
+    </article>
+  </div>
+
+</main>

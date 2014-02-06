@@ -1,0 +1,10 @@
+<p>
+  <label for="transaction_<%= transactionKey %>">
+    <%= questionText %><br />
+    <select name="transaction[<%= transactionKey %>]" id="transaction_<%= transactionKey %>">
+    <% [1,2,3,4,5,6,7,8,9].forEach(function(key){ %>
+      <option value="<%= key %>"><%= key %></option>
+    <% }) %>
+    </select>
+  </label>
+</p>
