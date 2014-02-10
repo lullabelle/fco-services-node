@@ -1,0 +1,1 @@
+<p>The cost for <%-: { count: calculation.registrationCount, word: "registration"} | pluralize %> and <%-: { count: calculation.documentCount, word: "certificate" } | pluralize %><% if (calculation.postage){ %> plus postage<% } %> is &pound;<%= calculation.totalCost %>.</p>
