@@ -68,7 +68,7 @@ describe("epdq routes", function(){
 
   describe("POST /confirm", function(){
     describe("given a zero document count", function(){
-      it("should render the start template and assign an error", function(done){
+      it("should assign an error", function(done){
 
         request(app)
           .post('/confirm')
@@ -79,7 +79,6 @@ describe("epdq routes", function(){
             should.not.exist(err);
 
             var renderArgs = Response.render.lastCall.args;
-            renderArgs[0].should.equal('start');
             renderArgs[1].errors.should.equal('Invalid document count');
             renderArgs[1].journeyDescription.should.equal('pay-foreign-marriage-certificates:invalid_form');
 
@@ -101,7 +100,6 @@ describe("epdq routes", function(){
             should.not.exist(err);
 
             var renderArgs = Response.render.lastCall.args;
-            renderArgs[0].should.equal('start');
             renderArgs[1].errors.should.equal('Invalid document type');
             renderArgs[1].journeyDescription.should.equal('pay-foreign-marriage-certificates:invalid_form');
 
@@ -125,14 +123,10 @@ describe("epdq routes", function(){
         .expect(200)
         .end(function(err, res){
           should.not.exist(err);
-
           var renderArgs = Response.render.lastCall.args,
               transaction = renderArgs[1].transaction,
               epdqRequest = renderArgs[1].epdqRequest,
-              formAttrs = epdqRequest.formAttributes(),
-              viewName = renderArgs[0];
-
-          viewName.should.equal('confirm');
+              formAttrs = epdqRequest.formAttributes();
           transaction.slug.should.equal('pay-foreign-marriage-certificates');
           transaction.title.should.equal('Payment for certificates to get married abroad');
           transaction.document_cost.should.equal(65);
@@ -175,10 +169,8 @@ describe("epdq routes", function(){
           var renderArgs = Response.render.lastCall.args,
               transaction = renderArgs[1].transaction,
               epdqRequest = renderArgs[1].epdqRequest,
-              formAttrs = epdqRequest.formAttributes(),
-              viewName = renderArgs[0];
+              formAttrs = epdqRequest.formAttributes();
 
-          viewName.should.equal('confirm');
           transaction.slug.should.equal('pay-register-birth-abroad');
           transaction.title.should.equal('Payment to register a birth abroad');
           transaction.document_cost.should.equal(65);
