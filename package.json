@@ -17,13 +17,16 @@
     "express": "3.4.8",
     "express-partials": "*",
     "ejs": "*",
-    "epdq": "*"
+    "epdq": "*",
+    "govuk_frontend_toolkit": "*",
+    "pluralize": "*"
   },
   "devDependencies": {
     "request": "*",
     "mocha": "*",
     "should": "*",
     "sinon": "*",
-    "supertest": "*"
+    "supertest": "*",
+    "zombie": "*"
   }
 }
