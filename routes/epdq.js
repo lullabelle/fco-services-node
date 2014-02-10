@@ -1,3 +1,4 @@
+require('./../lib/ejs-filters');
 
 var transaction,
     crypto = require('crypto'),
@@ -11,7 +12,11 @@ var journeyDescription = function(step){
 // Middleware filter.
 var findTransaction = function(req, res, next){
   try {
-    transaction = Transaction.find(req.subdomains[0]);
+    var name = null;
+    if (req.subdomains.length){
+      name = req.subdomains[req.subdomains.length - 1];
+    }
+    transaction = Transaction.find(name);
   } catch(err) {
     res.status(404);
     res.send('404 error');
@@ -64,21 +69,20 @@ module.exports = {
   middlewares : [ setExpiry, findTransaction ],
 
   start : function(req, res){
-
-    res.render('start', { transaction : transaction,
-                          journeyDescription : journeyDescription('start') });
-
+    res.render('start', {
+      transaction : transaction, journeyDescription : journeyDescription('start')
+    });
   },
 
   confirm : function(req, res){
     try {
-
       var calculation = transaction.calculateTotal(req.body['transaction']),
           epdqRequest = buildEpdqRequest(req, transaction, calculation.totalCost);
 
-      res.render('confirm', { transaction: transaction, epdqRequest: epdqRequest,
-                              journeyDescription: journeyDescription('confirm') });
-
+      res.render('confirm', {
+        calculation: calculation, epdqRequest: epdqRequest,
+        transaction: transaction, journeyDescription: journeyDescription('confirm')
+      });
     } catch(err) {
       res.render('start', { errors: err.message, journeyDescription: journeyDescription('invalid_form') });
     }
