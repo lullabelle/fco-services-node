@@ -1,5 +1,3 @@
-require('./../lib/ejs-filters');
-
 var transaction,
     crypto = require('crypto'),
     EPDQ = require('epdq'),
@@ -94,5 +92,11 @@ module.exports = {
   },
 
   done : function(req, res){
+    var epdqResponse = new EPDQ.Response(req.query, transaction.account, Transaction.PARAMPLUS_KEYS);
+    if (epdqResponse.isValidShasign()){
+      res.render('done', { epdqResponse: epdqResponse, journeyDescription: journeyDescription('done') });
+    } else {
+      res.render('payment_error', { journeyDescription: journeyDescription('payment_error') });
+    }
   }
 };

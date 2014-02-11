@@ -7,10 +7,10 @@ var app = require('./../../app'),
     Transaction = require('./../../models/transaction');
 
 describe("epdq routes", function(){
-  before(function(){
+  beforeEach(function(){
     sinon.spy(Response, 'render');
   });
-  after(function(){
+  afterEach(function(){
     Response.render.restore();
   });
   describe("start", function(){
@@ -167,7 +167,6 @@ describe("epdq routes", function(){
           should.not.exist(err);
 
           var renderArgs = Response.render.lastCall.args,
-              transaction = renderArgs[1].transaction,
               epdqRequest = renderArgs[1].epdqRequest,
               formAttrs = epdqRequest.formAttributes();
 
@@ -189,6 +188,102 @@ describe("epdq routes", function(){
 
           done();
         });
+    });
+  });
+
+  describe("done pages", function(){
+    it("returns 404 status if subdomain doesn't match a transaction", function(done){
+      request(app)
+        .get('/done')
+        .set('host','pay-bear-tax.gov.uk')
+        .expect(404)
+        .end(function(err, res){
+          should.not.exist(err);
+          done();
+        });
+    });
+    describe("for a standard transaction", function(){
+      before(function(done){
+        EPDQ.config.shaOut = '00000000000000000000000000000000000000000';
+        done();
+      });
+      describe("given valid params", function(){
+        it("should render the done template", function(done){
+          request(app)
+            .get('/done')
+            .query({
+              "orderID" : "test",
+              "currency" : "GBP",
+              "amount" : 45,
+              "PM" : "CreditCard",
+              "ACCEPTANCE" : "test123",
+              "STATUS" : 5,
+              "CARDNO" : "XXXXXXXXXXXX1111",
+              "CN" : "MR MICKEY MOUSE",
+              "TRXDATE" : "03/11/13",
+              "PAYID" : 12345678,
+              "NCERROR" : 0,
+              "BRAND" : "VISA",
+              "SHASIGN" : "6ACE8B0C8E0B427137F6D7FF86272AA570255003",
+              "document_count" : "3",
+              "postage" : "yes"
+            })
+            .set('host','pay-register-death-abroad.gov.uk')
+            .expect(200)
+            .end(function(err, res){
+              should.not.exist(err);
+              transaction.title.should.equal("Payment to register a death abroad");
+              transaction.slug.should.equal("pay-register-death-abroad");
+              var renderArgs = Response.render.lastCall.args,
+                  epdqResponse = renderArgs[1].epdqResponse,
+                  journeyDescription = renderArgs[1].journeyDescription,
+                  epdqParams = epdqResponse.parameters();
+
+              epdqParams['payid'].should.equal('12345678');
+              epdqParams['orderid'].should.equal('test');
+              epdqParams['document_count'].should.equal('3');
+              epdqParams['postage'].should.equal('yes');
+
+              journeyDescription.should.equal('pay-register-death-abroad:done');
+
+              done();
+            });
+        });
+      });
+      describe("given invalid parameters", function(){
+        it("should render the error template", function(done){
+          request(app)
+            .get('/done')
+            .query({
+              "orderID" : "test",
+              "currency" : "GBP",
+              "amount" : 45,
+              "PM" : "CreditCard",
+              "ACCEPTANCE" : "test123",
+              "STATUS" : 5,
+              "CARDNO" : "XXXXXXXXXXXX1111",
+              "CN" : "MR MICKEY MOUSE",
+              "TRXDATE" : "03/11/13",
+              "PAYID" : 12345678,
+              "NCERROR" : 0,
+              "BRAND" : "VISA",
+              "SHASIGN" : "something which is not correct",
+              "document_count" : "3",
+              "postage" : "yes"
+            })
+            .set('host','pay-register-death-abroad.gov.uk')
+            .expect(200)
+            .end(function(err, res){
+              should.not.exist(err);
+              var renderArgs = Response.render.lastCall.args,
+                  journeyDescription = renderArgs[1].journeyDescription;
+
+              journeyDescription.should.equal('pay-register-death-abroad:payment_error');
+
+              done();
+            });
+        });
+      });
     });
   });
 });
