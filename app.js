@@ -11,6 +11,8 @@ var partials  = require('express-partials');
 
 var app = express();
 
+var helpers = require('./helpers')(app);
+
 // all environments
 app.set('port', process.env.PORT || 1337);
 app.set('views', path.join(__dirname, 'views'));
@@ -38,6 +40,7 @@ app.get('/start', routes.epdq.middlewares, routes.epdq.start);
 app.post('/confirm', routes.epdq.middleware.findTransaction, routes.epdq.confirm);
 app.get('/confirm', function(req, res){ res.redirect('/start') });
 
+app.get('/done', routes.epdq.middleware.findTransaction, routes.epdq.done);
 module.exports = app;
 
 // Start the app if it's not being required as a module.

@@ -1,0 +1,22 @@
+<main id="content" role="main" class="group">
+
+  <header class="page-header group">
+    <div>
+      <h1><%= transaction.title %></h1>
+    </div>
+  </header>
+  <div class="article-container group">
+    <article role="article" class="group">
+      <div class="inner">
+        <%- partial("partials/transactions/" + transaction.slug + "/_done", { epdqResponse: epdqResponse }) %>
+
+        <section class="done">
+          <p>
+            <a href="https://www.gov.uk/done/<%= transaction.slug %>" class="button" rel="external">Finished</a>
+          </p>
+        </section>
+      </div>
+    </article>
+  </div>
+
+</main>
