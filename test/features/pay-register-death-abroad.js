@@ -31,7 +31,7 @@ describe("Pay to register a death abroad", function(){
         browser.pressButton('Calculate total', function(err){
           should.not.exist(err);
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'The cost for 2 registrations and 2 certificates plus postage is £350.');
+            'The cost for 2 registrations and 2 certificates plus postage is £350.00.');
           done();
         });
       });
