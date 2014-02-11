@@ -33,11 +33,16 @@ var secureRandom = function(len){
   return crypto.randomBytes(len).toString('hex');;
 };
 
+var websiteRoot = function(req){
+  return req.protocol + "://" + req.host;
+}
+
 var transactionDoneUrl = function(req){
-  return req.protocol + "://" + req.host + "/done";
+  return websiteRoot(req) + "/done";
 };
 var epdqTemplateUrl = function(req){
-  return "TODO";
+  //return websiteRoot(req) + "/barclays_epdq_template.html";
+  return "https://assets.digital.cabinet-office.gov.uk/templates/barclays_epdq.html";
 };
 
 
