@@ -6,6 +6,24 @@ var app = require('./../../app'),
     sinon = require('sinon'),
     Transaction = require('./../../models/transaction');
 
+describe("additional epdq config", function(){
+  it("should be required by the epdq routes module", function(done){
+    EPDQ.config.should.exist;
+    EPDQ.config.shaIn.should.equal('00000000000000000000000000000000000000000');
+    EPDQ.config.shaOut.should.equal('00000000000000000000000000000000000000000');
+    EPDQ.config.pspId.should.equal('pspid');
+    EPDQ.config.shaType.should.equal('sha1');
+    EPDQ.config.accounts.should.exist;
+    EPDQ.config.accounts['legalisation-post'].should.exist;
+    EPDQ.config.accounts['legalisation-drop-off'].should.exist;
+    EPDQ.config.accounts['birth-death-marriage'].should.exist;
+    EPDQ.config.accounts['birth-death-marriage'].pspId.should.equal('pspid');
+    EPDQ.config.accounts['birth-death-marriage'].shaIn.should.equal('00000000000000000000000000000000000000000');
+    EPDQ.config.accounts['birth-death-marriage'].shaOut.should.equal('00000000000000000000000000000000000000000');
+    done();
+  });
+});
+
 describe("epdq routes", function(){
   beforeEach(function(){
     sinon.spy(Response, 'render');

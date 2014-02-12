@@ -3,6 +3,9 @@ var transaction,
     EPDQ = require('epdq'),
     Transaction = require('./../models/transaction');
 
+// Load overidden EPDQ config.
+EPDQ.config = require('./../config/epdq.js').config;
+
 var journeyDescription = function(step){
   return transaction.slug + ":" + step;
 };
@@ -81,7 +84,7 @@ module.exports = {
     try {
       var calculation = transaction.calculateTotal(req.body['transaction']),
           epdqRequest = buildEpdqRequest(req, transaction, calculation.totalCost);
-
+console.log(EPDQ.config.shaIn)
       res.render('confirm', {
         calculation: calculation, epdqRequest: epdqRequest,
         transaction: transaction, journeyDescription: journeyDescription('confirm')
