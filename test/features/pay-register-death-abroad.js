@@ -9,9 +9,6 @@ var app = require('./../../app'),
 describe("Pay to register a death abroad", function(){
 
   beforeEach(function(done){
-    EPDQ.config.testMode = true;
-    EPDQ.config.pspId = 'woo';
-    EPDQ.config.shaIn = 'moo';
     browser.headers = {'Host':'pay-register-death-abroad.service.gov.uk'};
     browser.site = "http://localhost:"+port;
     this.server = http.createServer(app).listen(port);
