@@ -1,15 +1,21 @@
 var app = require('./../../app'),
+    browser,
     Browser = require('zombie'),
-    browser = new Browser(),
     EPDQ = require('epdq'),
     http = require('http'),
     port = (process.env.PORT || 1337),
     should = require('should');
 
+// Add a custom request handler to insert the appropriate host header.
+Browser.Resources.addHandler(function(request, next){
+  request.headers.host = 'pay-register-death-abroad.service.gov.uk';
+  next();
+});
+
 describe("Pay to register a death abroad", function(){
 
   beforeEach(function(done){
-    browser.headers = {'Host':'pay-register-death-abroad.service.gov.uk'};
+    browser = new Browser();
     browser.site = "http://localhost:"+port;
     this.server = http.createServer(app).listen(port);
     done();
