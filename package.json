@@ -17,7 +17,7 @@
     "express": "3.4.8",
     "express-partials": "*",
     "ejs": "*",
-    "epdq": "git://github.com/alphagov/epdq-node.git#gds_master",
+    "epdq": "git://github.com/alphagov/epdq_npm.git#gds_master",
     "govuk_frontend_toolkit": "*",
     "pluralize": "*"
   },
