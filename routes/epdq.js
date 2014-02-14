@@ -84,7 +84,6 @@ module.exports = {
     try {
       var calculation = transaction.calculateTotal(req.body['transaction']),
           epdqRequest = buildEpdqRequest(req, transaction, calculation.totalCost);
-console.log(EPDQ.config.shaIn)
       res.render('confirm', {
         calculation: calculation, epdqRequest: epdqRequest,
         transaction: transaction, journeyDescription: journeyDescription('confirm')
