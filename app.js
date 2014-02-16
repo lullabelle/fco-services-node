@@ -42,9 +42,6 @@ app.get('/confirm', function(req, res){ res.redirect('/start') });
 app.get('/done', routes.epdq.middleware.findTransaction, routes.epdq.done);
 module.exports = app;
 
-// Start the app if it's not being required as a module.
-if (!module.parent){
-  http.createServer(app).listen(app.get('port'), function(){
-    console.log('Express server listening on port ' + app.get('port'));
-  });
-}
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});

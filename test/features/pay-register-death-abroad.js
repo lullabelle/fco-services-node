@@ -17,12 +17,7 @@ describe("Pay to register a death abroad", function(){
   beforeEach(function(done){
     browser = new Browser();
     browser.site = "http://localhost:"+port;
-    this.server = http.createServer(app).listen(port);
     done();
-  });
-
-  afterEach(function(done){
-    this.server.close(done);
   });
 
   describe("start", function(){
