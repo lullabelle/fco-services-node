@@ -1,0 +1,10 @@
+<p><%= questionText %></p>
+<ul class="options-list">
+  <%- transaction.postage_options.forEach(function(opt){ %>
+    <li>
+      <label for="transaction_postage_option_<%= value %>">
+        <input type="radio" name="transaction[postage_option]" value %> <%= opt.label %> - &pound;<%= opt.cost %>
+      <% end %>
+    </li>
+  <% }); %>
+</ul>
