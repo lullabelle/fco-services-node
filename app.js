@@ -34,9 +34,6 @@ app.get('/healthcheck', routes.healthcheck);
 
 module.exports = app;
 
-// Start the app if it's not being required as a module.
-if (!module.parent){
-  http.createServer(app).listen(app.get('port'), function(){
-    console.log('Express server listening on port ' + app.get('port'));
-  });
-}
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});
