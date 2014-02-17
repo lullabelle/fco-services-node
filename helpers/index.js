@@ -6,6 +6,10 @@ var pluralise = function(word, count){
   return pluralize(word, count, true);
 };
 
+var titleCase = function(word){
+  return word.charAt(0).toUpperCase() + word.slice(1);
+};
+
 var formatMoney = function(num){
   return num.toFixed(2);
 };
@@ -31,6 +35,7 @@ var registrationCount = function(){
 module.exports = function(app){
   if (typeof app == 'undefined') throw new Error("You must app to this module!");
   app.locals.pluralise = pluralise;
+  app.locals.titleCase = titleCase;
   app.locals.formatMoney = formatMoney;
   app.locals.epdqParams = epdqParams;
   app.locals.postage = postage;
