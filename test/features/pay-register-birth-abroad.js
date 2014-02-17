@@ -6,13 +6,13 @@ var app = require('./../../app'),
     port = (process.env.PORT || 1337),
     should = require('should');
 
-Browser.dns.localhost('pay-register-death-abroad.test.gov.uk');
+Browser.dns.localhost('pay-register-birth-abroad.test.gov.uk');
 
-describe("Pay to register a death abroad", function(){
+describe("Pay to register a birth abroad", function(){
 
   beforeEach(function(done){
     browser = new Browser();
-    browser.site = "http://pay-register-death-abroad.test.gov.uk:"+port;
+    browser.site = "http://pay-register-birth-abroad.test.gov.uk:"+port;
     done();
   });
 
@@ -22,7 +22,7 @@ describe("Pay to register a death abroad", function(){
 
         should.not.exist(err);
 
-        browser.text('#content header h1').should.equal('Payment to register a death abroad');
+        browser.text('#content header h1').should.equal('Payment to register a birth abroad');
         browser.select('#transaction_registration_count','2');
         browser.select('#transaction_document_count', '2');
         browser.select('#transaction_postage', 'Yes');

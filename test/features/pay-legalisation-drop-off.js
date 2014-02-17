@@ -6,13 +6,13 @@ var app = require('./../../app'),
     port = (process.env.PORT || 1337),
     should = require('should');
 
-Browser.dns.localhost('pay-register-death-abroad.test.gov.uk');
+Browser.dns.localhost('pay-legalisation-drop-off.test.gov.uk');
 
-describe("Pay to register a death abroad", function(){
+describe("Pay to legalise documents using the drop off service", function(){
 
   beforeEach(function(done){
     browser = new Browser();
-    browser.site = "http://pay-register-death-abroad.test.gov.uk:"+port;
+    browser.site = "http://pay-legalisation-drop-off.test.gov.uk:"+port;
     done();
   });
 
@@ -22,17 +22,15 @@ describe("Pay to register a death abroad", function(){
 
         should.not.exist(err);
 
-        browser.text('#content header h1').should.equal('Payment to register a death abroad');
-        browser.select('#transaction_registration_count','2');
-        browser.select('#transaction_document_count', '2');
-        browser.select('#transaction_postage', 'Yes');
+        browser.text('#content header h1').should.equal('Pay to legalise documents using the drop-off service');
+        browser.fill('#transaction_document_count', '3');
 
         browser.pressButton('Calculate total', function(err){
 
           should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'The cost for 2 registrations and 2 certificates plus postage is £350.00.');
+            'It costs £225.00 for 3 documents.');
 
           browser.query("form").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
           browser.query("form").method.should.equal("post");

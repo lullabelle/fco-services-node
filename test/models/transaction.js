@@ -1,5 +1,7 @@
 var app = require('./../../app'),
+    fs = require('fs'),
     should = require('should'),
+    sinon = require('sinon'),
     Transaction = require('./../../models/transaction');
 
 describe("Transaction", function(){
@@ -12,6 +14,13 @@ describe("Transaction", function(){
       trans.postage_cost.should.equal(10);
       trans.registration.should.be.ok;
       trans.account.should.equal('birth-death-marriage');
+    });
+    it("should only load the transactions data once",function(){
+      var spy = sinon.spy(fs, 'readFileSync');
+      Transaction._transactions = null;
+      Transaction.transactions();
+      Transaction.transactions();
+      spy.calledOnce.should.be.ok;
     });
   });
 });

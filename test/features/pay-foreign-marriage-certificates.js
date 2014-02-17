@@ -1,18 +1,16 @@
 var app = require('./../../app'),
     browser,
     Browser = require('zombie'),
-    EPDQ = require('epdq'),
-    http = require('http'),
     port = (process.env.PORT || 1337),
     should = require('should');
 
-Browser.dns.localhost('pay-register-death-abroad.test.gov.uk');
+Browser.dns.localhost('pay-foreign-marriage-certificates.test.gov.uk');
 
-describe("Pay to register a death abroad", function(){
+describe("Payment for certificates to get married abroad", function(){
 
   beforeEach(function(done){
     browser = new Browser();
-    browser.site = "http://pay-register-death-abroad.test.gov.uk:"+port;
+    browser.site = "http://pay-foreign-marriage-certificates.test.gov.uk:"+port;
     done();
   });
 
@@ -22,8 +20,9 @@ describe("Pay to register a death abroad", function(){
 
         should.not.exist(err);
 
-        browser.text('#content header h1').should.equal('Payment to register a death abroad');
-        browser.select('#transaction_registration_count','2');
+        browser.text('#content header h1').should.equal('Payment for certificates to get married abroad');
+
+        browser.choose('#transaction_document_type_certificate-of-no-impediment');
         browser.select('#transaction_document_count', '2');
         browser.select('#transaction_postage', 'Yes');
 
@@ -32,7 +31,7 @@ describe("Pay to register a death abroad", function(){
           should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'The cost for 2 registrations and 2 certificates plus postage is £350.00.');
+            'The cost of 2 certificates of no impediment plus postage is £140.00.');
 
           browser.query("form").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
           browser.query("form").method.should.equal("post");
