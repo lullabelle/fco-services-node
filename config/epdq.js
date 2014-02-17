@@ -1,8 +1,8 @@
 exports.config = {
-  shaIn : '00000000000000000000000000000000000000000',
-  shaOut : '00000000000000000000000000000000000000000',
+  shaIn : (process.env["epdq_shaIn"] || "00000000000000000000000000000000000000000"),
+  shaOut : (process.env["epdq_shaOut"] || "00000000000000000000000000000000000000000"),
   shaType : 'sha1',
-  pspId : 'pspid',
+  pspId : (process.env["epdq_pspid"] || 'pspid'),
   testMode : true,
   accounts : {
     'legalisation-post' : {
