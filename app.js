@@ -32,7 +32,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
+app.get('/', routes.epdq.middleware.findTransaction, routes.epdq.rootRedirect);
 app.get('/healthcheck', routes.healthcheck);
 app.get('/start', routes.epdq.middlewares, routes.epdq.start);
 
