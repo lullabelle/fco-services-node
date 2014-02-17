@@ -1,3 +1,4 @@
+<% var epdqParams = epdqResponse.parameters(); -%>
 <p>You have paid for <%= registrationsAndCertificates %><% if (postage){ %> plus postage<% } %>.</p>
 
 <p>Your payment reference is <%= epdqParams['payid'] %></p>

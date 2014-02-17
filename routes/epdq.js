@@ -72,9 +72,18 @@ var buildEpdqRequest = function(req, transaction, totalCost){
   });
 };
 
+
+/**
+ * EPDQ /start, /confirm and /done actions.
+ *
+ */
 module.exports = {
   middleware : { setExpiry : setExpiry, findTransaction : findTransaction },
   middlewares : [ setExpiry, findTransaction ],
+
+  rootRedirect : function(req, res){
+    res.redirect("https://www.gov.uk/" + transaction.slug);
+  },
 
   start : function(req, res){
     res.render('start', {

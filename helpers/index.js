@@ -14,21 +14,21 @@ var formatMoney = function(num){
   return num.toFixed(2);
 };
 
-var epdqParams = function(){
-  return edpqResponse.parameters;
+var epdqParams = function(epdqResponse){
+  return epdqResponse.parameters();
 };
 
-var postage = function(){
-  return (typeof edpqParams['postage'] != 'undefined' && edpqParams['postage'] == 'yes');
+var postage = function(params){
+  return (typeof params['postage'] != 'undefined' && params['postage'] == 'yes');
 };
 
-var documentCount = function(){
-  var documentCount = epdqParams['document_count'];
+var documentCount = function(params){
+  var documentCount = parseInt(params['document_count'],10);
   return (typeof documentCount == 'undefined' ? 0 : new Number(documentCount));
 };
 
-var registrationCount = function(){
-  var registrationCount = epdqParams['document_count'];
+var registrationCount = function(params){
+  var registrationCount = parseInt(params['document_count'],10);
   return (typeof registrationCount == 'undefined' ? 0 : new Number(registrationCount));
 };
 

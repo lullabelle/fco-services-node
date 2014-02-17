@@ -1,8 +1,9 @@
+<% var epdqParams = epdqResponse.parameters(); -%>
 <p>Your payment to the Foreign &amp; Commonwealth Office is complete.</p>
 
-<p>You have paid for <%= pluralize registration_count, "registration" %> and <%= pluralise("certificate", documentCount) %><% if (postage){ %>, plus postage<% } %>.</p>
+<p>You have paid for <%= pluralize registrationCount(epdqParams), "registration" %> and <%= pluralise("certificate", documentCount(epdqParams)) %><% if (postage){ %>, plus postage<% } %>.</p>
 
 <p>Your payment reference is <%= epdqParams['payid'] %>.</p>
 
-<p>Print this page and send it, along with your <%= pluralise("certificate", documentCount) %>, application form and supporting documents listed on the form, to the Foreign &amp; Commonwealth Office (FCO). The address is on the form.</p>
+<p>Print this page and send it, along with your <%= pluralise("certificate", documentCount(epdqParams)) %>, application form and supporting documents listed on the form, to the Foreign &amp; Commonwealth Office (FCO). The address is on the form.</p>
 <p>Your payment ID is <strong><%= epdqParams['payid'] %></strong>.</p>

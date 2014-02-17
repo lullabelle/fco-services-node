@@ -128,84 +128,87 @@ describe("epdq routes", function(){
     });
   });
 
-  describe("POST /confirm", function(){
-    it("should use the post body to build an EPDQ.Request", function(done){
+  describe("with custom account info", function(){
+    before(function(done){
+      EPDQ.config.accounts = { 'birth-death-marriage' : {
+        pspId : '5up3r53cr3t',
+        shaType : 'sha1',
+        shaIn : 'F4CC376CD7A834D997B91598FA747825A238BE0A'
+      } };
 
-      EPDQ.config.pspId = '5up3r53cr3t';
-      EPDQ.config.shaIn = 'F4CC376CD7A834D997B91598FA747825A238BE0A';
-
-      request(app)
-        .post('/confirm')
-        .set('host','pay-foreign-marriage-certificates.gov.uk')
-        .send({ 'transaction' : { 'document_count' : '5', 'postage' : 'yes', 'document_type' : 'nulla-osta' } })
-        .expect(200)
-        .end(function(err, res){
-          should.not.exist(err);
-          var renderArgs = Response.render.lastCall.args,
-              transaction = renderArgs[1].transaction,
-              epdqRequest = renderArgs[1].epdqRequest,
-              formAttrs = epdqRequest.formAttributes();
-          transaction.slug.should.equal('pay-foreign-marriage-certificates');
-          transaction.title.should.equal('Payment for certificates to get married abroad');
-          transaction.document_cost.should.equal(65);
-          transaction.postage_cost.should.equal(10);
-          transaction.registration.should.equal(false);
-          transaction.account.should.equal('birth-death-marriage');
-
-          formAttrs['ACCEPTURL'].should.equal('http://pay-foreign-marriage-certificates.gov.uk/done');
-          formAttrs['ACCOUNT'].should.equal('birth-death-marriage');
-          formAttrs['AMOUNT'].should.equal('33500'); // Math.round((65 * 5) + 10) * 100) = 33500
-          formAttrs['CURRENCY'].should.equal('GBP');
-          formAttrs['LANGUAGE'].should.equal('en_GB');
-          formAttrs['PSPID'].should.equal('5up3r53cr3t');
-
-          renderArgs[1].journeyDescription.should.equal('pay-foreign-marriage-certificates:confirm');
-
-          done();
-        });
+      done();
     });
-  });
+    describe("POST /confirm", function(){
+      it("should use the post body to build an EPDQ.Request", function(done){
 
-  describe("with registration count", function(){
-    it("should create an EPDQ Request with the correct amount", function(done){
+        request(app)
+          .post('/confirm')
+          .set('host','pay-foreign-marriage-certificates.gov.uk')
+          .send({ 'transaction' : { 'document_count' : '5', 'postage' : 'yes', 'document_type' : 'nulla-osta' } })
+          .expect(200)
+          .end(function(err, res){
+            should.not.exist(err);
+            var renderArgs = Response.render.lastCall.args,
+                transaction = renderArgs[1].transaction,
+                epdqRequest = renderArgs[1].epdqRequest,
+                formAttrs = epdqRequest.formAttributes();
+            transaction.slug.should.equal('pay-foreign-marriage-certificates');
+            transaction.title.should.equal('Payment for certificates to get married abroad');
+            transaction.document_cost.should.equal(65);
+            transaction.postage_cost.should.equal(10);
+            transaction.registration.should.equal(false);
+            transaction.account.should.equal('birth-death-marriage');
 
-      EPDQ.config.pspId = '5up3r53cr3t';
-      EPDQ.config.shaIn = 'F4CC376CD7A834D997B91598FA747825A238BE0A';
+            formAttrs['ACCEPTURL'].should.equal('http://pay-foreign-marriage-certificates.gov.uk/done');
+            formAttrs['AMOUNT'].should.equal('33500'); // Math.round((65 * 5) + 10) * 100) = 33500
+            formAttrs['CURRENCY'].should.equal('GBP');
+            formAttrs['LANGUAGE'].should.equal('en_GB');
+            formAttrs['PSPID'].should.equal('5up3r53cr3t');
 
-      request(app)
-        .post('/confirm')
-        .set('host','pay-register-birth-abroad.gov.uk')
-        .send({ 'transaction' : {
-          'registration_count' : '5',
-          'document_count' : '5',
-          'postage' : 'yes'
-        } })
-        .expect(200)
-        .end(function(err, res){
-          should.not.exist(err);
+            renderArgs[1].journeyDescription.should.equal('pay-foreign-marriage-certificates:confirm');
 
-          var renderArgs = Response.render.lastCall.args,
-              epdqRequest = renderArgs[1].epdqRequest,
-              formAttrs = epdqRequest.formAttributes();
+            done();
+          });
+      });
+    });
 
-          transaction.slug.should.equal('pay-register-birth-abroad');
-          transaction.title.should.equal('Payment to register a birth abroad');
-          transaction.document_cost.should.equal(65);
-          transaction.postage_cost.should.equal(10);
-          transaction.registration.should.equal(true);
-          transaction.account.should.equal('birth-death-marriage');
+    describe("with registration count", function(){
+      it("should create an EPDQ Request with the correct amount", function(done){
 
-          formAttrs['ACCEPTURL'].should.equal('http://pay-register-birth-abroad.gov.uk/done');
-          formAttrs['ACCOUNT'].should.equal('birth-death-marriage');
-          formAttrs['AMOUNT'].should.equal('86000');
-          formAttrs['CURRENCY'].should.equal('GBP');
-          formAttrs['LANGUAGE'].should.equal('en_GB');
-          formAttrs['PSPID'].should.equal('5up3r53cr3t');
+        request(app)
+          .post('/confirm')
+          .set('host','pay-register-birth-abroad.gov.uk')
+          .send({ 'transaction' : {
+            'registration_count' : '5',
+            'document_count' : '5',
+            'postage' : 'yes'
+          } })
+          .expect(200)
+          .end(function(err, res){
+            should.not.exist(err);
 
-          renderArgs[1].journeyDescription.should.equal('pay-register-birth-abroad:confirm');
+            var renderArgs = Response.render.lastCall.args,
+                epdqRequest = renderArgs[1].epdqRequest,
+                formAttrs = epdqRequest.formAttributes();
 
-          done();
-        });
+            transaction.slug.should.equal('pay-register-birth-abroad');
+            transaction.title.should.equal('Payment to register a birth abroad');
+            transaction.document_cost.should.equal(65);
+            transaction.postage_cost.should.equal(10);
+            transaction.registration.should.equal(true);
+            transaction.account.should.equal('birth-death-marriage');
+
+            formAttrs['ACCEPTURL'].should.equal('http://pay-register-birth-abroad.gov.uk/done');
+            formAttrs['AMOUNT'].should.equal('86000');
+            formAttrs['CURRENCY'].should.equal('GBP');
+            formAttrs['LANGUAGE'].should.equal('en_GB');
+            formAttrs['PSPID'].should.equal('5up3r53cr3t');
+
+            renderArgs[1].journeyDescription.should.equal('pay-register-birth-abroad:confirm');
+
+            done();
+          });
+      });
     });
   });
 
@@ -222,7 +225,11 @@ describe("epdq routes", function(){
     });
     describe("for a standard transaction", function(){
       before(function(done){
-        EPDQ.config.shaOut = '00000000000000000000000000000000000000000';
+        EPDQ.config.accounts = { 'birth-death-marriage' : {
+          shaOut : '00000000000000000000000000000000000000000',
+          shaType : 'sha1'
+        } };
+
         done();
       });
       describe("given valid params", function(){
@@ -263,6 +270,7 @@ describe("epdq routes", function(){
               epdqParams['postage'].should.equal('yes');
 
               journeyDescription.should.equal('pay-register-death-abroad:done');
+              res.text.should.match(/You have paid for 3 registrations and 3 certificates, plus postage/);
 
               done();
             });
