@@ -14,9 +14,7 @@ var journeyDescription = function(step){
 var findTransaction = function(req, res, next){
   try {
     var name = null;
-    if (process.env.DEFAULT_TRANSACTION_NAME){
-      name = process.env.DEFAULT_TRANSACTION_NAME;
-    } else if (req.subdomains.length){
+    if (req.subdomains.length){
       name = req.subdomains[req.subdomains.length - 1];
     }
     transaction = Transaction.find(name);
