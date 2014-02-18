@@ -52,4 +52,16 @@ describe("Pay to register a death abroad", function(){
       });
     });
   });
+  describe("/done", function(){
+    it("should show the completed transaction", function(done){
+      browser.visit("/done?orderID=27107f89b1ec56a17ac4fde7a60ecc&amount=480&STATUS=5&PAYID=28170384&NCERROR=0&document_count=4&postage=yes&registration_count=2&SHASIGN=01A11E9D3D661AE7BF086B28F250252C24F1EE44",
+        {}, function(err){
+          should.not.exist(err);
+          var doneText = browser.text('.article-container .inner');
+          doneText.should.match(/You have paid for 2 registrations and 4 certificates, plus postage./);
+          doneText.should.match(/Your payment reference is 28170384/);
+          done();
+      });
+    });
+  });
 });

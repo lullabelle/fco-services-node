@@ -54,7 +54,7 @@ var paramplusValue = function(params){
       vals.push(key + "=" + params['transaction'][key]);
     }
   });
-  return vals;
+  return vals.join('&');
 };
 
 var buildEpdqRequest = function(req, transaction, totalCost){
