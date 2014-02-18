@@ -33,8 +33,8 @@ describe("Pay to legalise a document by post", function(){
           browser.text('#content .article-container .inner p:first-child').should.equal(
             'It costs £36.00 for 1 document plus Tracked courier service to the UK or British Forces Post Office postage.');
 
-          browser.query("form").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
-          browser.query("form").method.should.equal("post");
+          browser.query("form.epdq-submit").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
+          browser.query("form.epdq-submit").method.should.equal("post");
 
           browser.field("input[name='ORDERID']").should.exist;
           browser.field("input[name='PSPID']").should.exist;

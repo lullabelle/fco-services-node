@@ -33,8 +33,8 @@ describe("Payment for certificates to get married abroad", function(){
           browser.text('#content .article-container .inner p:first-child').should.equal(
             'The cost of 2 certificates of no impediment plus postage is £140.00.');
 
-          browser.query("form").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
-          browser.query("form").method.should.equal("post");
+          browser.query("form.epdq-submit").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
+          browser.query("form.epdq-submit").method.should.equal("post");
 
           browser.field("input[name='ORDERID']").should.exist;
           browser.field("input[name='PSPID']").should.exist;
