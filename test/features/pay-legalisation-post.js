@@ -51,4 +51,16 @@ describe("Pay to legalise a document by post", function(){
       });
     });
   });
+  describe("/done", function(){
+    it("should show the completed transaction", function(done){
+      browser.visit("/done?orderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MR%20MICKEY%20MOUSE&TRXDATE=03%2F11%2F13&PAYID=12345678&NCERROR=0&BRAND=VISA&SHASIGN=6ACE8B0C8E0B427137F6D7FF86272AA570255003&document_count=3&registration_count=4&postage=yes",
+        {}, function(err){
+          should.not.exist(err);
+          var doneText = browser.text('.article-container .inner');
+          doneText.should.match(/Your payment of £45 has been received by the Legalisation Office/);
+          doneText.should.match(/Your payment number is 12345678/);
+          done();
+      });
+    });
+  });
 });
