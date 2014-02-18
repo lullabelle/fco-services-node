@@ -18,16 +18,26 @@ var epdqParams = function(epdqResponse){
   return epdqResponse.parameters();
 };
 
-var postage = function(params){
-  return (typeof params['postage'] != 'undefined' && params['postage'] == 'yes');
-};
-
 var documentCount = function(params){
   return (parseInt(params['document_count'], 10) || 0);
 };
 
 var registrationCount = function(params){
   return (parseInt(params['registration_count'], 10) || 0);
+};
+
+var registrationsAndCertificates = function(params){
+  var phrases = [],
+      regCount = registrationCount(params),
+      docCount = documentCount(params);
+
+  if (regCount > 0){
+    phrases.push(pluralise("registration", regCount));
+  }
+  if (docCount > 0){
+    phrases.push(pluralise("certificate", docCount));
+  }
+  return phrases.join(" and ");
 };
 
 var pageTitle = function(){
@@ -40,9 +50,9 @@ module.exports = function(app){
   app.locals.titleCase = titleCase;
   app.locals.formatMoney = formatMoney;
   app.locals.epdqParams = epdqParams;
-  app.locals.postage = postage;
   app.locals.documentCount = documentCount;
   app.locals.registrationCount = registrationCount;
+  app.locals.registrationsAndCertificates = registrationsAndCertificates;
 
   // govuk_template vars
   app.locals.topOfPage = "";

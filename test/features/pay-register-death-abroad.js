@@ -54,12 +54,12 @@ describe("Pay to register a death abroad", function(){
   });
   describe("/done", function(){
     it("should show the completed transaction", function(done){
-      browser.visit("/done?orderID=27107f89b1ec56a17ac4fde7a60ecc&amount=480&STATUS=5&PAYID=28170384&NCERROR=0&document_count=4&postage=yes&registration_count=2&SHASIGN=01A11E9D3D661AE7BF086B28F250252C24F1EE44",
+      browser.visit("/done?orderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MR%20MICKEY%20MOUSE&TRXDATE=03%2F11%2F13&PAYID=12345678&NCERROR=0&BRAND=VISA&SHASIGN=6ACE8B0C8E0B427137F6D7FF86272AA570255003&document_count=3&registration_count=4&postage=yes",
         {}, function(err){
           should.not.exist(err);
           var doneText = browser.text('.article-container .inner');
-          doneText.should.match(/You have paid for 2 registrations and 4 certificates, plus postage./);
-          doneText.should.match(/Your payment reference is 28170384/);
+          doneText.should.match(/You have paid for 4 registrations and 3 certificates, plus postage./);
+          doneText.should.match(/Your payment reference is 12345678/);
           done();
       });
     });

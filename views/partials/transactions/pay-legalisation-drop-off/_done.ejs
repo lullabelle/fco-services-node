@@ -1,7 +1,7 @@
 <% var epdqParams = epdqResponse.parameters(); -%>
 <h2>Payment confirmation</h2>
 
-<p>Your payment of &pound;<%= formatMoney(epdqParams['amount']) %> has been received by the Legalisation Office.</p>
+<p>Your payment of &pound;<%= formatMoney(parseInt(epdqParams['amount'],10)||0) %> has been received by the Legalisation Office.</p>
 
 <p>Your payment number is <%= epdqParams['payid'] %>.</p>
 

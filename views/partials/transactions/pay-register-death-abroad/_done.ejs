@@ -2,7 +2,7 @@
 
 <p>Your payment to the Foreign &amp; Commonwealth Office is complete.</p>
 
-<p>You have paid for <%= pluralise("registration", registrationCount(epdqParams)) %> and <%= pluralise("certificate", documentCount(epdqParams)) %><% if (postage){ %>, plus postage<% } %>.</p>
+<p>You have paid for <%= pluralise("registration", registrationCount(epdqParams)) %> and <%= pluralise("certificate", documentCount(epdqParams)) %><% if (epdqParams['postage'] == 'yes'){ %>, plus postage<% } %>.</p>
 
 <p>Your payment reference is <%= epdqParams['payid'] %>.</p>
 
