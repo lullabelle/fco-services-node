@@ -24,12 +24,12 @@ var postage = function(params){
 };
 
 var documentCount = function(params){
-  var documentCount = parseInt(params['document_count'],10);
+  var documentCount = parseInt(params['document_count'], 10);
   return (typeof documentCount == 'undefined' ? 0 : new Number(documentCount));
 };
 
 var registrationCount = function(params){
-  var registrationCount = parseInt(params['document_count'],10);
+  var registrationCount = parseInt(params['registration_count'], 10);
   return (typeof registrationCount == 'undefined' ? 0 : new Number(registrationCount));
 };
 

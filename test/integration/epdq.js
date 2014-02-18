@@ -251,6 +251,7 @@ describe("epdq routes", function(){
               "BRAND" : "VISA",
               "SHASIGN" : "6ACE8B0C8E0B427137F6D7FF86272AA570255003",
               "document_count" : "3",
+              "registration_count" : "4",
               "postage" : "yes"
             })
             .set('host','pay-register-death-abroad.gov.uk')
@@ -270,7 +271,7 @@ describe("epdq routes", function(){
               epdqParams['postage'].should.equal('yes');
 
               journeyDescription.should.equal('pay-register-death-abroad:done');
-              res.text.should.match(/You have paid for 3 registrations and 3 certificates, plus postage/);
+              res.text.should.match(/You have paid for 4 registrations and 3 certificates, plus postage/);
 
               done();
             });
