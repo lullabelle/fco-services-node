@@ -1,5 +1,4 @@
-var partials = require('express-partials'),
-    pluralize = require('pluralize');
+var pluralize = require('pluralize');
 /**
  * View helpers (see http://expressjs.com/api.html#app.locals)
  */
@@ -24,13 +23,11 @@ var postage = function(params){
 };
 
 var documentCount = function(params){
-  var documentCount = parseInt(params['document_count'], 10);
-  return (typeof documentCount == 'undefined' ? 0 : new Number(documentCount));
+  return (parseInt(params['document_count'], 10) || 0);
 };
 
 var registrationCount = function(params){
-  var registrationCount = parseInt(params['registration_count'], 10);
-  return (typeof registrationCount == 'undefined' ? 0 : new Number(registrationCount));
+  return (parseInt(params['registration_count'], 10) || 0);
 };
 
 var pageTitle = function(){
@@ -38,7 +35,7 @@ var pageTitle = function(){
 };
 
 module.exports = function(app){
-  if (typeof app == 'undefined') throw new Error("You must app to this module!");
+  if (typeof app == 'undefined') throw new Error("Please pass an app to this module!");
   app.locals.pluralise = pluralise;
   app.locals.titleCase = titleCase;
   app.locals.formatMoney = formatMoney;

@@ -268,8 +268,8 @@ describe("epdq routes", function(){
               epdqParams['payid'].should.equal('12345678');
               epdqParams['orderid'].should.equal('test');
               epdqParams['document_count'].should.equal('3');
+              epdqParams['registration_count'].should.equal('4');
               epdqParams['postage'].should.equal('yes');
-
               journeyDescription.should.equal('pay-register-death-abroad:done');
               res.text.should.match(/You have paid for 4 registrations and 3 certificates, plus postage/);
 
