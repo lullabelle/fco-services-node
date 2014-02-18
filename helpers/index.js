@@ -1,4 +1,5 @@
-var pluralize = require('pluralize');
+var partials = require('express-partials'),
+    pluralize = require('pluralize');
 /**
  * View helpers (see http://expressjs.com/api.html#app.locals)
  */
@@ -32,6 +33,10 @@ var registrationCount = function(params){
   return (typeof registrationCount == 'undefined' ? 0 : new Number(registrationCount));
 };
 
+var pageTitle = function(){
+  return transaction.title + " - GOV.UK";
+};
+
 module.exports = function(app){
   if (typeof app == 'undefined') throw new Error("You must app to this module!");
   app.locals.pluralise = pluralise;
@@ -41,4 +46,17 @@ module.exports = function(app){
   app.locals.postage = postage;
   app.locals.documentCount = documentCount;
   app.locals.registrationCount = registrationCount;
+
+  // govuk_template vars
+  app.locals.topOfPage = "";
+  app.locals.pageTitle = pageTitle;
+  app.locals.assetPath = "/";
+  app.locals.bodyClasses = "mainstream";
+  app.locals.headerClass = "";
+  app.locals.insideHeader = "";
+  app.locals.propositionHeader = "";
+  app.locals.afterHeader = "";
+  app.locals.cookieMessage = "";
+  app.locals.bodyEnd = "";
+  app.locals.govukRoot = "https://www.gov.uk";
 }

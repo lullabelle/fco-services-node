@@ -32,8 +32,8 @@ describe("Pay to legalise documents using the drop off service", function(){
           browser.text('#content .article-container .inner p:first-child').should.equal(
             'It costs £225.00 for 3 documents.');
 
-          browser.query("form").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
-          browser.query("form").method.should.equal("post");
+          browser.query("form.epdq-submit").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
+          browser.query("form.epdq-submit").method.should.equal("post");
 
           browser.field("input[name='ORDERID']").should.exist;
           browser.field("input[name='PSPID']").should.exist;
