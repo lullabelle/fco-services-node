@@ -57,7 +57,6 @@ module.exports = function(app){
   app.locals.propositionHeader = "";
   app.locals.afterHeader = "";
   app.locals.cookieMessage = "";
-  app.locals.footerTop = "";
-  app.locals.footerSupportLinks = "";
   app.locals.bodyEnd = "";
+  app.locals.govukRoot = "https://www.gov.uk";
 }
