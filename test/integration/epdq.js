@@ -130,11 +130,11 @@ describe("epdq routes", function(){
 
   describe("with custom account info", function(){
     before(function(done){
-      EPDQ.config.accounts = { 'birth-death-marriage' : {
+      EPDQ.config.accounts['birth-death-marriage'] = {
         pspId : '5up3r53cr3t',
         shaType : 'sha1',
         shaIn : 'F4CC376CD7A834D997B91598FA747825A238BE0A'
-      } };
+      };
 
       done();
     });
