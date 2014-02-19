@@ -21,6 +21,10 @@ describe("Payment for certificates to get married abroad", function(){
         should.not.exist(err);
 
         browser.text('#content header h1').should.equal('Payment for certificates to get married abroad');
+        browser.text('.options-list li:first-child').should.equal('Nulla Osta');
+        browser.text('.options-list li:last-child').should.equal('Certificate of no impediment');
+
+        browser.text('.inner label[for="transaction_document_count"]').should.match(/How many do you need\? Each certificate costs £65\./);
 
         browser.choose('#transaction_document_type_certificate-of-no-impediment');
         browser.select('#transaction_document_count', '2');
