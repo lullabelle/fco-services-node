@@ -25,11 +25,13 @@ describe("additional epdq config", function(){
 });
 
 describe("epdq routes", function(){
-  beforeEach(function(){
+  beforeEach(function(done){
     sinon.spy(Response, 'render');
+    done();
   });
-  afterEach(function(){
+  afterEach(function(done){
     Response.render.restore();
+    done();
   });
   describe("start", function(){
     it("should find the appropriate transaction", function(done){
@@ -129,15 +131,16 @@ describe("epdq routes", function(){
   });
 
   describe("with custom account info", function(){
-    before(function(){
+    beforeEach(function(done){
       EPDQ.config.accounts['birth-death-marriage'] = {
         pspId : '5up3r53cr3t',
         shaType : 'sha1',
         shaIn : 'F4CC376CD7A834D997B91598FA747825A238BE0A'
       };
+      done();
     });
-    describe("POST /confirm", function(){
-      it("should use the post body to build an EPDQ.Request", function(){
+    describe("POST /confirm", function(done){
+      it("should use the post body to build an EPDQ.Request", function(done){
 
         request(app)
           .post('/confirm')
@@ -164,12 +167,13 @@ describe("epdq routes", function(){
             formAttrs['PSPID'].should.equal('5up3r53cr3t');
 
             renderArgs[1].journeyDescription.should.equal('pay-foreign-marriage-certificates:confirm');
+            done();
           });
       });
     });
 
-    describe("with registration count", function(){
-      it("should create an EPDQ Request with the correct amount", function(){
+    describe("with registration count", function(done){
+      it("should create an EPDQ Request with the correct amount", function(done){
 
         request(app)
           .post('/confirm')
@@ -201,6 +205,7 @@ describe("epdq routes", function(){
             formAttrs['PSPID'].should.equal('5up3r53cr3t');
 
             renderArgs[1].journeyDescription.should.equal('pay-register-birth-abroad:confirm');
+            done();
           });
       });
     });
