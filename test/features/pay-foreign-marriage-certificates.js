@@ -20,6 +20,8 @@ describe("Payment for certificates to get married abroad", function(){
 
         should.not.exist(err);
 
+        browser.text("title").should.equal('Payment for certificates to get married abroad - GOV.UK');
+
         browser.text('#content header h1').should.equal('Payment for certificates to get married abroad');
 
         browser.choose('#transaction_document_type_certificate-of-no-impediment');

@@ -26,7 +26,7 @@
   "strict"        : false,
   "trailing"      : true,
   "maxdepth"      : 3,
-  "maxstatements" : 15,
+  "maxstatements" : 20,
   "maxcomplexity" : 7,
 
   "asi"           : false,
