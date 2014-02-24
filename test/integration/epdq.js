@@ -7,7 +7,7 @@ var app = require('./../../app'),
     Transaction = require('./../../models/transaction');
 
 describe("additional epdq config", function(){
-  it("should be required by the epdq routes module", function(done){
+  it("should be required by the epdq routes module", function(){
     EPDQ.config.should.exist;
     EPDQ.config.shaIn.should.equal('00000000000000000000000000000000000000000');
     EPDQ.config.shaOut.should.equal('00000000000000000000000000000000000000000');
@@ -20,19 +20,18 @@ describe("additional epdq config", function(){
     EPDQ.config.accounts['birth-death-marriage'].pspId.should.equal('pspid');
     EPDQ.config.accounts['birth-death-marriage'].shaIn.should.equal('00000000000000000000000000000000000000000');
     EPDQ.config.accounts['birth-death-marriage'].shaOut.should.equal('00000000000000000000000000000000000000000');
-    done();
   });
 });
 
 describe("epdq routes", function(){
-  beforeEach(function(){
+  before(function(){
     sinon.spy(Response, 'render');
   });
-  afterEach(function(){
+  after(function(){
     Response.render.restore();
   });
   describe("start", function(){
-    it("should find the appropriate transaction", function(done){
+    it("should find the appropriate transaction", function(){
 
       request(app)
         .get('/start')
@@ -46,11 +45,9 @@ describe("epdq routes", function(){
           renderArgs[1].journeyDescription.should.equal('pay-register-death-abroad:start');
 
           res.text.should.match(/Payment to register a death abroad/)
-
-          done();
         });
     });
-     it("should set the correct expiry headers", function(done){
+     it("should set the correct expiry headers", function(){
       request(app)
         .get('/start')
         .set('host','pay-register-death-abroad.gov.uk')
@@ -58,17 +55,15 @@ describe("epdq routes", function(){
         .end(function(err, res){
           should.not.exist(err);
           res.headers['cache-control'].should.equal('max-age=1800, public');
-          done();
         });
     });
-    it("should return a 404 if the subdomain does not match a transaction", function(done){
+    it("should return a 404 if the subdomain does not match a transaction", function(){
       request(app)
         .get('/start')
         .set('host','pay-register-a-dog-abroad.gov.uk')
         .expect(404)
         .end(function(err, res){
           should.not.exist(err);
-          done();
         });
     });
   });
@@ -86,7 +81,7 @@ describe("epdq routes", function(){
 
   describe("POST /confirm", function(){
     describe("given a zero document count", function(){
-      it("should assign an error", function(done){
+      it("should assign an error", function(){
 
         request(app)
           .post('/confirm')
@@ -99,15 +94,12 @@ describe("epdq routes", function(){
             var renderArgs = Response.render.lastCall.args;
             renderArgs[1].errors.should.equal('Invalid document count');
             renderArgs[1].journeyDescription.should.equal('pay-foreign-marriage-certificates:invalid_form');
-
-            done();
           });
-
       });
     });
 
     describe("given an invalid document type", function(){
-      it("should render the start template and assign an error", function(done){
+      it("should render the start template and assign an error", function(){
 
         request(app)
           .post('/confirm')
@@ -120,8 +112,6 @@ describe("epdq routes", function(){
             var renderArgs = Response.render.lastCall.args;
             renderArgs[1].errors.should.equal('Invalid document type');
             renderArgs[1].journeyDescription.should.equal('pay-foreign-marriage-certificates:invalid_form');
-
-            done();
           });
 
       });
@@ -207,27 +197,24 @@ describe("epdq routes", function(){
   });
 
   describe("done pages", function(){
-    it("returns 404 status if subdomain doesn't match a transaction", function(done){
+    it("returns 404 status if subdomain doesn't match a transaction", function(){
       request(app)
         .get('/done')
         .set('host','pay-bear-tax.gov.uk')
         .expect(404)
         .end(function(err, res){
           should.not.exist(err);
-          done();
         });
     });
     describe("for a standard transaction", function(){
-      before(function(done){
+      before(function(){
         EPDQ.config.accounts = { 'birth-death-marriage' : {
           shaOut : '00000000000000000000000000000000000000000',
           shaType : 'sha1'
         } };
-
-        done();
       });
       describe("given valid params", function(){
-        it("should render the done template", function(done){
+        it("should render the done template", function(){
           request(app)
             .get('/done')
             .query({
@@ -266,13 +253,11 @@ describe("epdq routes", function(){
               epdqParams['postage'].should.equal('yes');
               journeyDescription.should.equal('pay-register-death-abroad:done');
               res.text.should.match(/You have paid for 4 registrations and 3 certificates, plus postage/);
-
-              done();
             });
         });
       });
       describe("given invalid parameters", function(){
-        it("should render the error template", function(done){
+        it("should render the error template", function(){
           request(app)
             .get('/done')
             .query({
@@ -300,8 +285,6 @@ describe("epdq routes", function(){
                   journeyDescription = renderArgs[1].journeyDescription;
 
               journeyDescription.should.equal('pay-register-death-abroad:payment_error');
-
-              done();
             });
         });
       });
