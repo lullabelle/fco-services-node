@@ -1,8 +1,15 @@
+<%
+if (typeof transaction === 'undefined') {
+  title = "There was a problem making your payment to the Foreign &amp; Commonwealth Office - GOV.UK";
+} else {
+  title = pageTitle(transaction);
+}
+-%>
 <main id="content" role="main" class="group">
 
   <header class="page-header group">
     <div>
-      <h1><%= transaction.title %></h1>
+      <h1><%= title %></h1>
     </div>
   </header>
   <div class="article-container group">
