@@ -11,7 +11,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "test": "mocha -R spec test/",
+    "test": "npm run-script lint && mocha -R spec test/",
     "lint": "./node_modules/jshint/bin/jshint app.js config/*.js helpers/*.js lib/*.js models/*.js routes/*.js"
   },
   "dependencies": {
