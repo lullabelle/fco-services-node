@@ -91,6 +91,9 @@ module.exports = {
 
   confirm : function(req, res){
     try {
+
+console.log("EPDQ.config............")
+console.log(EPDQ.config)
       var calculation = transaction.calculateTotal(req.body['transaction']),
           epdqRequest = buildEpdqRequest(req, transaction, calculation.totalCost);
 console.log("edpqRequest.formAttributes()['PSPID'] : " + epdqRequest.formAttributes()['PSPID'])
