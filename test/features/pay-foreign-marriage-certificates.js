@@ -25,8 +25,8 @@ describe("Payment for certificates to get married abroad", function(){
         homeBreadcrumb.getAttribute('href').should.equal('https://www.gov.uk/');
         homeBreadcrumb.innerHTML.should.equal('Home');
 
-        browser.text('.options-list li:first-child').should.equal('Nulla Osta');
-        browser.text('.options-list li:last-child').should.equal('Certificate of no impediment');
+        browser.text('.options-list li:first-child').should.equal('Certificate of no impediment');
+        browser.text('.options-list li:last-child').should.equal('Nulla Osta');
 
         browser.text('.inner label[for="transaction_document_count"]').should.match(/How many do you need\? Each certificate costs £65\./);
 
