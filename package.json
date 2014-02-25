@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "ejs": "0.8.5",
-    "epdq": "git://github.com/alphagov/epdq_npm.git#gds_master",
+    "epdq": "git://github.com/alphagov/epdq_npm.git#f8bfbda492f005a566c205df9ea6098b55d17b93",
     "express": "3.4.8",
     "express-partials": "0.2.0",
     "pluralize": "0.0.7",
