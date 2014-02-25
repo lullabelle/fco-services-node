@@ -22,6 +22,8 @@ describe("Pay to legalise documents using the drop off service", function(){
 
         should.not.exist(err);
 
+        browser.text("title").should.equal('Pay to legalise documents using the drop-off service - GOV.UK');
+
         browser.text('#content header h1').should.equal('Pay to legalise documents using the drop-off service');
         browser.fill('#transaction_document_count', '3');
 

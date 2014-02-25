@@ -189,6 +189,7 @@ describe("epdq routes", function(){
 
             var renderArgs = Response.render.lastCall.args,
                 epdqRequest = renderArgs[1].epdqRequest,
+                transaction = renderArgs[1].transaction,
                 formAttrs = epdqRequest.formAttributes();
 
             transaction.slug.should.equal('pay-register-birth-abroad');
@@ -257,13 +258,14 @@ describe("epdq routes", function(){
             .expect(200)
             .end(function(err, res){
               should.not.exist(err);
-              transaction.title.should.equal("Payment to register a death abroad");
-              transaction.slug.should.equal("pay-register-death-abroad");
               var renderArgs = Response.render.lastCall.args,
                   epdqResponse = renderArgs[1].epdqResponse,
+                  epdqParams = epdqResponse.parameters(),
                   journeyDescription = renderArgs[1].journeyDescription,
-                  epdqParams = epdqResponse.parameters();
+                  transaction = renderArgs[1]._locals.transaction;
 
+              transaction.title.should.equal("Payment to register a death abroad");
+              transaction.slug.should.equal("pay-register-death-abroad");
               epdqParams['payid'].should.equal('12345678');
               epdqParams['orderid'].should.equal('test');
               epdqParams['document_count'].should.equal('3');

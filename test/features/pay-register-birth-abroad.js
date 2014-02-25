@@ -22,6 +22,8 @@ describe("Pay to register a birth abroad", function(){
 
         should.not.exist(err);
 
+        browser.text("title").should.equal('Payment to register a birth abroad - GOV.UK');
+
         browser.text('#content header h1').should.equal('Payment to register a birth abroad');
         browser.select('#transaction_registration_count','2');
         browser.select('#transaction_document_count', '2');

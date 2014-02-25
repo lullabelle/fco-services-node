@@ -22,6 +22,8 @@ describe("Pay to legalise a document by post", function(){
 
         should.not.exist(err);
 
+        browser.text("title").should.equal('Pay to legalise documents by post - GOV.UK');
+
         browser.text('#content header h1').should.equal('Pay to legalise documents by post');
         browser.fill('#transaction_document_count', '1');
         browser.choose('#transaction_postage_option_uk');
