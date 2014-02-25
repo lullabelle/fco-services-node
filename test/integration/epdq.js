@@ -141,7 +141,7 @@ describe("epdq routes", function(){
     });
     describe("POST /confirm", function(done){
       it("should use the post body to build an EPDQ.Request", function(done){
-
+console.log(EPDQ.config)
         request(app)
           .post('/confirm')
           .set('host','pay-foreign-marriage-certificates.gov.uk')
@@ -159,7 +159,7 @@ describe("epdq routes", function(){
             transaction.postage_cost.should.equal(10);
             transaction.registration.should.equal(false);
             transaction.account.should.equal('birth-death-marriage');
-
+console.log(EPDQ.config)
             formAttrs['ACCEPTURL'].should.equal('http://pay-foreign-marriage-certificates.gov.uk/done');
             formAttrs['AMOUNT'].should.equal('33500'); // Math.round((65 * 5) + 10) * 100) = 33500
             formAttrs['CURRENCY'].should.equal('GBP');
