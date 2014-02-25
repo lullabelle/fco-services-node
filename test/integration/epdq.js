@@ -160,6 +160,7 @@ console.log(EPDQ.config)
             transaction.registration.should.equal(false);
             transaction.account.should.equal('birth-death-marriage');
 console.log(EPDQ.config)
+console.log(formAttrs)
             formAttrs['ACCEPTURL'].should.equal('http://pay-foreign-marriage-certificates.gov.uk/done');
             formAttrs['AMOUNT'].should.equal('33500'); // Math.round((65 * 5) + 10) * 100) = 33500
             formAttrs['CURRENCY'].should.equal('GBP');

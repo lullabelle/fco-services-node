@@ -93,6 +93,7 @@ module.exports = {
     try {
       var calculation = transaction.calculateTotal(req.body['transaction']),
           epdqRequest = buildEpdqRequest(req, transaction, calculation.totalCost);
+console.log("edpqRequest.formAttributes()['PSPID'] : " + epdqRequest.formAttributes()['PSPID'])
       res.render('confirm', {
         calculation: calculation, epdqRequest: epdqRequest,
         transaction: transaction, journeyDescription: journeyDescription('confirm')
