@@ -130,13 +130,11 @@ describe("epdq routes", function(){
     });
   });
 
-  describe("with custom account info", function(){
+  describe("with custom account info from environment variables", function(){
     beforeEach(function(done){
-      EPDQ.config.accounts['birth-death-marriage'] = {
-        pspId : '5up3r53cr3t',
-        shaType : 'sha1',
-        shaIn : 'F4CC376CD7A834D997B91598FA747825A238BE0A'
-      };
+      process.env.epdq_birth_pspid = '5up3r53cr3t';
+      process.env.epdq_birth_shaIn = 'F4CC376CD7A834D997B91598FA747825A238BE0A';
+      EPDQ.config = require('./../../config/epdq').config();
       done();
     });
     describe("POST /confirm", function(done){

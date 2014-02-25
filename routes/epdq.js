@@ -4,7 +4,7 @@ var transaction,
     Transaction = require('./../models/transaction');
 
 // Load overidden EPDQ config.
-EPDQ.config = require('./../config/epdq.js').config;
+EPDQ.config = require('./../config/epdq.js').config();
 
 var journeyDescription = function(step){
   return transaction.slug + ":" + step;
