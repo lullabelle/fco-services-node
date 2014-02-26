@@ -22,6 +22,8 @@ describe("Pay to register a birth abroad", function(){
 
         should.not.exist(err);
 
+        browser.text("title").should.equal('Payment to register a birth abroad - GOV.UK');
+
         browser.text('#content header h1').should.equal('Payment to register a birth abroad');
         browser.select('#transaction_registration_count','2');
         browser.select('#transaction_document_count', '2');
@@ -60,6 +62,11 @@ describe("Pay to register a birth abroad", function(){
           var doneText = browser.text('.article-container .inner');
           doneText.should.match(/You have paid for 4 registrations and 3 certificates, plus postage./);
           doneText.should.match(/Your payment reference is 12345678/);
+
+          var finishedButton = browser.query('.inner section.done a');
+          finishedButton.getAttribute('href').should.equal('https://www.gov.uk/done/pay-register-birth-abroad');
+          finishedButton.innerHTML.should.equal('Finished');
+
           done();
       });
     });

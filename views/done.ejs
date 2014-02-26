@@ -8,7 +8,14 @@
   <div class="article-container group">
     <article role="article" class="group">
       <div class="inner">
+
         <%- partial("partials/transactions/" + transaction.slug + "/_done", { epdqResponse: epdqResponse }) %>
+
+        <section class="done">
+          <p>
+            <a href="https://www.gov.uk/done/<%= transaction.slug %>" class="button transaction-done" rel="external">Finished</a>
+          </p>
+        </section>
       </div>
     </article>
   </div>

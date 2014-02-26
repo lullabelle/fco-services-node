@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 
-    <title><%- pageTitle() %></title>
+    <title><%- pageTitle(transaction) %></title>
 
     <script type="text/javascript">
       (function(){if(navigator.userAgent.match(/IEMobile\/10\.0/)){var d=document,c="appendChild",a=d.createElement("style");a[c](d.createTextNode("@-ms-viewport{width:auto!important}"));d.getElementsByTagName("head")[0][c](a);}})();
@@ -70,7 +70,7 @@
       <div class="header-wrapper">
         <div class="header-global">
           <div class="header-logo">
-            <a href="https://www.gov.uk/" title="Go to the GOV.UK homepage" id="logo" class="content">
+            <a href="<%= govukRoot %>/" title="Go to the GOV.UK homepage" id="logo" class="content">
               <img src="<%= assetPath %>images/gov.uk_logotype_crown.png?0.6.1" alt=""> GOV.UK
             </a>
           </div>
