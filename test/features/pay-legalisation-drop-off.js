@@ -60,6 +60,11 @@ describe("Pay to legalise documents using the drop off service", function(){
           var doneText = browser.text('.article-container .inner');
           doneText.should.match(/Your payment of £45.00 has been received by the Legalisation Office/);
           doneText.should.match(/Your payment number is 12345678/);
+
+          var finishedButton = browser.query('.inner section.done a');
+          finishedButton.getAttribute('href').should.equal('https://www.gov.uk/done/pay-legalisation-drop-off');
+          finishedButton.innerHTML.should.equal('Finished');
+
           done();
       });
     });
