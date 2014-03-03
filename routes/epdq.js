@@ -34,7 +34,13 @@ var secureRandom = function (len) {
 };
 
 var websiteRoot = function (req) {
-  return req.protocol + '://' + req.host;
+  var port = req.app.settings.port,
+      rootUrl = req.protocol + '://' + req.host;
+
+  if (port !== 80) {
+    rootUrl += ':' + req.app.settings.port;
+  }
+  return rootUrl;
 };
 
 var transactionDoneUrl = function (req) {

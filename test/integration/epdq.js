@@ -160,7 +160,7 @@ describe("epdq routes", function(){
             transaction.registration.should.equal(false);
             transaction.account.should.equal('birth-death-marriage');
 
-            formAttrs['ACCEPTURL'].should.equal('http://pay-foreign-marriage-certificates.gov.uk/done');
+            formAttrs['ACCEPTURL'].should.equal('http://pay-foreign-marriage-certificates.gov.uk:1337/done');
             formAttrs['AMOUNT'].should.equal('33500'); // Math.round((65 * 5) + 10) * 100) = 33500
             formAttrs['CURRENCY'].should.equal('GBP');
             formAttrs['LANGUAGE'].should.equal('en_GB');
@@ -199,7 +199,7 @@ describe("epdq routes", function(){
             transaction.registration.should.equal(true);
             transaction.account.should.equal('birth-death-marriage');
 
-            formAttrs['ACCEPTURL'].should.equal('http://pay-register-birth-abroad.gov.uk/done');
+            formAttrs['ACCEPTURL'].should.equal('http://pay-register-birth-abroad.gov.uk:1337/done');
             formAttrs['AMOUNT'].should.equal('86000');
             formAttrs['CURRENCY'].should.equal('GBP');
             formAttrs['LANGUAGE'].should.equal('en_GB');
