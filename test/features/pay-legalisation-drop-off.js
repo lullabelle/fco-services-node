@@ -32,7 +32,7 @@ describe("Pay to legalise documents using the drop off service", function(){
           should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'It costs £225.00 for 3 documents.');
+            'It costs £225 for 3 documents.');
 
           browser.query("form.epdq-submit").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
           browser.query("form.epdq-submit").method.should.equal("post");
@@ -58,7 +58,7 @@ describe("Pay to legalise documents using the drop off service", function(){
         {}, function(err){
           should.not.exist(err);
           var doneText = browser.text('.article-container .inner');
-          doneText.should.match(/Your payment of £45.00 has been received by the Legalisation Office/);
+          doneText.should.match(/Your payment of £45 has been received by the Legalisation Office/);
           doneText.should.match(/Your payment number is 12345678/);
 
           var finishedButton = browser.query('.inner section.done a');

@@ -19,6 +19,7 @@
     "epdq": "git://github.com/alphagov/epdq_npm.git#1f58a369e00f69ca3c6f29b5c4851e17d2457303",
     "express": "3.4.8",
     "express-partials": "0.2.0",
+    "numeral": "1.5.3",
     "pluralize": "0.0.7",
     "qs": "0.6.6"
   },

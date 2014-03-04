@@ -1,4 +1,5 @@
-var pluralize = require('pluralize');
+var numeral = require('numeral'),
+    pluralize = require('pluralize');
 /**
  * View helpers (see http://expressjs.com/api.html#app.locals)
  */
@@ -11,7 +12,11 @@ var titleCase = function (word) {
 };
 
 var formatMoney = function (num) {
-  return num.toFixed(2);
+  if (num % 1 === 0) {
+    return num;
+  } else {
+    return numeral(num).format('0,0.00');
+  }
 };
 
 var epdqParams = function (epdqResponse) {
