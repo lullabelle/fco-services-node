@@ -4,7 +4,7 @@
   <% for (var opt in postageOptions){ %>
     <li>
       <label for="transaction_postage_option_<%= opt %>">
-        <input type="radio" id="transaction_postage_option_<%= opt %>" name="transaction[postage_option]" value="<%= opt %>" /> <%= postageOptions[opt].label %> - &pound;<%= postageOptions[opt].cost %>
+        <input type="radio" id="transaction_postage_option_<%= opt %>" name="transaction[postage_option]" value="<%= opt %>" /> <%= postageOptions[opt].label %> - &pound;<%= formatMoney(postageOptions[opt].cost) %>
       </label>
     </li>
   <% } -%>

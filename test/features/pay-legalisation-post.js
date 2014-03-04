@@ -25,6 +25,10 @@ describe("Pay to legalise a document by post", function(){
         browser.text("title").should.equal('Pay to legalise documents by post - GOV.UK');
 
         browser.text('#content header h1').should.equal('Pay to legalise documents by post');
+
+        browser.text('.options-list li:first-child').should.equal('Tracked courier service to the rest of the world - £25');
+        browser.text('.options-list li:nth-child(2)').should.match(/^Tracked courier service to Europe .*? £14\.50$/);
+
         browser.fill('#transaction_document_count', '1');
         browser.choose('#transaction_postage_option_uk');
 
@@ -33,7 +37,7 @@ describe("Pay to legalise a document by post", function(){
           should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'It costs £36.00 for 1 document plus Tracked courier service to the UK or British Forces Post Office postage.');
+            'It costs £36 for 1 document plus Tracked courier service to the UK or British Forces Post Office postage.');
 
           browser.query("form.epdq-submit").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
           browser.query("form.epdq-submit").method.should.equal("post");

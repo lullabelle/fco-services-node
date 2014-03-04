@@ -34,7 +34,7 @@ describe("Pay to register a birth abroad", function(){
           should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'The cost for 2 registrations and 2 certificates plus postage is £350.00.');
+            'The cost for 2 registrations and 2 certificates plus postage is £350.');
 
           browser.query("form.epdq-submit").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
           browser.query("form.epdq-submit").method.should.equal("post");
