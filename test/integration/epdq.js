@@ -195,12 +195,11 @@ describe("epdq routes", function(){
             transaction.slug.should.equal('pay-register-birth-abroad');
             transaction.title.should.equal('Payment to register a birth abroad');
             transaction.document_cost.should.equal(65);
-            transaction.postage_cost.should.equal(10);
             transaction.registration.should.equal(true);
             transaction.account.should.equal('birth-death-marriage');
 
             formAttrs['ACCEPTURL'].should.equal('http://pay-register-birth-abroad.gov.uk/done');
-            formAttrs['AMOUNT'].should.equal('86000');
+            formAttrs['AMOUNT'].should.equal('85450');
             formAttrs['CURRENCY'].should.equal('GBP');
             formAttrs['LANGUAGE'].should.equal('en_GB');
             formAttrs['PSPID'].should.equal('5up3r53cr3t');

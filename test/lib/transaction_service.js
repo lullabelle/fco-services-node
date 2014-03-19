@@ -25,7 +25,7 @@ describe("TransactionService", function () {
         protocol : 'http',
         host : 'test.dev.gov.uk',
         body : { 'transaction' : {
-            'country_slug' : 'spain',
+            'country' : 'spain',
             'document_count' : '2',
             'postage' : 'yes'
         } }

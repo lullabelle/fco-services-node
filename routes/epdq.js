@@ -15,7 +15,7 @@ var setExpiry = function (req, res, next) {
 };
 
 /**
- * EPDQ /start, /confirm and /done actions.
+ * EPDQ transaction actions.
  *
  */
 module.exports = {
@@ -31,7 +31,8 @@ module.exports = {
    */
   start : function (req, res) {
     res.render('start', {
-      country : req.query['country'],
+      country : (req.query['country'] || ''),
+      postalCountry : (req.query['postal_country'] || ''),
       transaction : res.locals.transaction,
       journeyDescription : journeyDescription(res, 'start')
     });
@@ -42,8 +43,8 @@ module.exports = {
    */
   confirm : function (req, res) {
     try {
-      var calculation = res.locals.transaction.calculateTotal(req.body['transaction']),
-          transactionService = new TransactionService(res.locals.transaction),
+      var transactionService = new TransactionService(res.locals.transaction),
+          calculation = transactionService.calculateTotal(req.body['transaction']),
           epdqRequest = transactionService.buildEpdqRequest(req, calculation.totalCost);
 
       res.render('confirm', {
@@ -54,7 +55,8 @@ module.exports = {
       });
     } catch (err) {
       res.render('start', {
-        country : req.body['transaction']['country_slug'],
+        country : req.body['transaction']['country'],
+        postalCountry : req.body['transaction']['postal_country'],
         errors: err.message,
         journeyDescription: journeyDescription(res, 'invalid_form')
       });

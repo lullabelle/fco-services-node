@@ -65,6 +65,48 @@ describe("TransactionCalculator", function(){
       calculator.calculate({'document_count': 0, 'postage': 'yes'}).totalCost.should.equal(5);
     });
   });
+  describe("given a transaction with registration and uk postage costs", function(){
+    beforeEach(function(){
+      transaction = {
+        'document_cost': 65,
+        'registration_cost': 75,
+        'allow_zero_document_count': true,
+        'registration': true
+      };
+      calculator = new TransactionCalculator(transaction);
+    });
+    it("calculates the cost with multiple registrations plus postage", function(){
+      calculator.calculate({'registration_count': 2, 'postage': 'yes'}).totalCost.should.equal(154.5);
+    });
+  });
+  describe("given a transaction with registration and european postage costs", function(){
+    beforeEach(function(){
+      transaction = {
+        'document_cost': 65,
+        'registration_cost': 105,
+        'allow_zero_document_count': true,
+        'registration': 'birth'
+      };
+      calculator = new TransactionCalculator(transaction);
+    });
+    it("calculates the cost with multiple registrations plus postage", function(){
+      calculator.calculate({'registration_count': 2, 'postage': 'yes', 'postal_country': 'spain'}).totalCost.should.equal(222.5);
+    });
+    describe("given a transaction with registration and worldwide postage costs", function(){
+    beforeEach(function(){
+      transaction = {
+        'document_cost': 65,
+        'registration_cost': 105,
+        'allow_zero_document_count': true,
+        'registration': 'birth'
+      };
+      calculator = new TransactionCalculator(transaction);
+    });
+    it("calculates the cost with multiple registrations plus postage", function(){
+      calculator.calculate({'registration_count': 2, 'postage': 'yes', 'postal_country': 'usa'}).totalCost.should.equal(232);
+    });
+  });
+});
   describe("given a transaction which allows zero documents", function(){
     beforeEach(function(){
       transaction = {
