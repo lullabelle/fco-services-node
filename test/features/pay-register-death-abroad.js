@@ -17,7 +17,15 @@ describe("Pay to register a death abroad", function(){
   });
 
   describe("start", function(){
-    it("render the transaction intro page and generate the payment form when 'Calculate total' is clicked", function(done){
+    it("accepts a country parameter for use in confirmation", function (done) {
+      browser.visit("/start?country=narnia", {}, function(err){
+        should.not.exist(err);
+
+        browser.query("input#transaction_country_slug").value.should.equal('narnia');
+        done();
+      });
+    });
+    it("renders the transaction intro page and generates the payment form when 'Calculate total' is clicked", function(done){
       browser.visit("/start", {}, function(err){
 
         should.not.exist(err);

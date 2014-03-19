@@ -13,6 +13,7 @@
           <p class="error-message"><%= errors %></p>
         <% } %>
 
+          <input type="hidden" id="transaction_country_slug" name="transaction[country_slug]" value="<%= country %>" />
           <%- partial("partials/transactions/" + transaction.slug + "/intro") %>
 
           <p id="get-started" class="get-started group">
