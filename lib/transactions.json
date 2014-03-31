@@ -4,6 +4,7 @@
     "registration_type":"death",
     "registration":true,
     "document_cost":65,
+    "allow_zero_document_count":true,
     "registration_cost":105,
     "postage_options": [
       { "key":"prepaid",
@@ -66,6 +67,7 @@
     "registration_type":"birth",
     "registration":true,
     "document_cost":65,
+    "allow_zero_document_count":true,
     "registration_cost":105,
     "postage_options": [
       {

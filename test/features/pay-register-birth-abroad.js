@@ -26,7 +26,7 @@ describe("Pay to register a birth abroad", function(){
 
         browser.text('#content header h1').should.equal('Payment to register a birth abroad');
         browser.select('#transaction_registration_count','2');
-        browser.select('#transaction_document_count', '2');
+        browser.select('#transaction_document_count', '0');
         browser.choose('#transaction_postage_option_uk');
 
         browser.pressButton('Calculate total', function(err){
@@ -34,7 +34,7 @@ describe("Pay to register a birth abroad", function(){
           should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'The cost for 2 registrations and 2 certificates plus Tracked courier service to the UK or British Forces Post Office postage is £344.50.');
+            'The cost for 2 registrations and 0 certificates plus Tracked courier service to the UK or British Forces Post Office postage is £214.50.');
 
           browser.query("form.epdq-submit").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
           browser.query("form.epdq-submit").method.should.equal("post");
