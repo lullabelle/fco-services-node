@@ -71,12 +71,16 @@ describe("TransactionCalculator", function(){
         'document_cost': 65,
         'registration_cost': 75,
         'allow_zero_document_count': true,
-        'registration': true
+        'registration': true,
+        'postage_options': [
+          {"key": "uk", "cost": 4.5},
+          {"key": "europe", "cost": 12.5}
+        ]
       };
       calculator = new TransactionCalculator(transaction);
     });
     it("calculates the cost with multiple registrations plus postage", function(){
-      calculator.calculate({'registration_count': 2, 'postage': 'yes'}).totalCost.should.equal(154.5);
+      calculator.calculate({'registration_count': 2, 'postage_option': 'uk'}).totalCost.should.equal(154.5);
     });
   });
   describe("given a transaction with registration and european postage costs", function(){
@@ -85,12 +89,16 @@ describe("TransactionCalculator", function(){
         'document_cost': 65,
         'registration_cost': 105,
         'allow_zero_document_count': true,
-        'registration': 'birth'
+        'registration': 'birth',
+        'postage_options': [
+          {"key": "uk", "cost": 4.5},
+          {"key": "europe", "cost": 12.5}
+        ]
       };
       calculator = new TransactionCalculator(transaction);
     });
     it("calculates the cost with multiple registrations plus postage", function(){
-      calculator.calculate({'registration_count': 2, 'postage': 'yes', 'postal_country': 'spain'}).totalCost.should.equal(222.5);
+      calculator.calculate({'registration_count': 2, 'postage': 'yes', 'postage_option': 'europe'}).totalCost.should.equal(222.5);
     });
     describe("given a transaction with registration and worldwide postage costs", function(){
     beforeEach(function(){
@@ -98,12 +106,15 @@ describe("TransactionCalculator", function(){
         'document_cost': 65,
         'registration_cost': 105,
         'allow_zero_document_count': true,
-        'registration': 'birth'
+        'registration': 'birth',
+        'postage_options': [
+          { "key": "rest-of-world", "cost": 22 }
+        ]
       };
       calculator = new TransactionCalculator(transaction);
     });
     it("calculates the cost with multiple registrations plus postage", function(){
-      calculator.calculate({'registration_count': 2, 'postage': 'yes', 'postal_country': 'usa'}).totalCost.should.equal(232);
+      calculator.calculate({'registration_count': 2, 'postage': 'yes', 'postage_option': 'rest-of-world'}).totalCost.should.equal(232);
     });
   });
 });
@@ -160,20 +171,23 @@ describe("TransactionCalculator", function(){
     beforeEach(function(){
       transaction = {
         'document_cost': 20,
-        'postage_options': {
-          "horse-and-cart": {
+        'postage_options': [
+          {
+            "key": "horse-and-cart",
             "label": "Horse and cart",
             "cost" : 10
           },
-          "iron-horse" : {
+          {
+            "key": "iron-horse",
             "label" : "Iron horse",
             "cost" : 20
           },
-          "flying-machine" : {
+          {
+            "key": "flying-machine",
             "label" : "Flying machine",
             "cost" : 35
           }
-        }
+        ]
       };
       calculator = new TransactionCalculator(transaction);
     });

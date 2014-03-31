@@ -27,14 +27,14 @@ describe("Pay to register a birth abroad", function(){
         browser.text('#content header h1').should.equal('Payment to register a birth abroad');
         browser.select('#transaction_registration_count','2');
         browser.select('#transaction_document_count', '2');
-        browser.select('#transaction_postage', 'Yes');
+        browser.choose('#transaction_postage_option_uk');
 
         browser.pressButton('Calculate total', function(err){
 
           should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'The cost for 2 registrations and 2 certificates plus postage is £344.50.');
+            'The cost for 2 registrations and 2 certificates plus Tracked courier service to the UK or British Forces Post Office postage is £344.50.');
 
           browser.query("form.epdq-submit").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
           browser.query("form.epdq-submit").method.should.equal("post");
@@ -53,28 +53,32 @@ describe("Pay to register a birth abroad", function(){
         });
       });
     });
-    describe("start with birth and postal country parameters", function(){
+    describe("start with birth country parameter", function(){
       it("render the transaction intro page and generate the payment form when 'Calculate total' is clicked", function(done){
-        browser.visit("/start?country=spain&postal_country=vietnam", {}, function(err){
+        browser.visit("/start?country=spain", {}, function(err){
 
         should.not.exist(err);
 
         browser.query("#transaction_country").value.should.equal("spain");
-        browser.query("#transaction_postal_country").value.should.equal("vietnam");
 
         browser.text("title").should.equal('Payment to register a birth abroad - GOV.UK');
+        browser.text('.options-list li:first-child').should.equal('Prepaid envelope that you provide (to the UK only) - £0');
+        browser.text('.options-list li:nth-child(2)').should.match(/^Tracked courier service to the UK or British Forces Post Office - £4\.50$/);
+        browser.text('.options-list li:nth-child(3)').should.match(/^Tracked courier service to Europe .*? £12\.50$/);
+        browser.text('.options-list li:nth-child(4)').should.equal('Tracked courier service to the rest of the world - £22');
+
 
         browser.text('#content header h1').should.equal('Payment to register a birth abroad');
         browser.select('#transaction_registration_count','2');
         browser.select('#transaction_document_count', '2');
-        browser.select('#transaction_postage', 'Yes');
+        browser.choose('#transaction_postage_option_europe');
 
         browser.pressButton('Calculate total', function(err){
 
           should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'The cost for 2 registrations and 2 certificates plus postage is £362.');
+            'The cost for 2 registrations and 2 certificates plus Tracked courier service to Europe (excluding Russia, Turkey, Bosnia, Croatia, Albania, Belarus, Macedonia, Moldova, Montenegro, Ukraine) postage is £352.50.');
 
           browser.query("form.epdq-submit").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
           browser.query("form.epdq-submit").method.should.equal("post");

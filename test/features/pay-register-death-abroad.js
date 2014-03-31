@@ -18,25 +18,29 @@ describe("Pay to register a death abroad", function(){
 
   describe("start", function(){
     it("accepts a country parameter for use in confirmation", function (done) {
-      browser.visit("/start?country=usa&postal_country=france", {}, function(err){
+      browser.visit("/start?country=usa", {}, function(err){
         should.not.exist(err);
 
         browser.query("input#transaction_country").value.should.equal('usa');
-        browser.query("input#transaction_postal_country").value.should.equal('france');
 
         browser.text("title").should.equal('Payment to register a death abroad - GOV.UK');
+        browser.text('.options-list li:first-child').should.equal('Prepaid envelope that you provide (to the UK only) - £0');
+        browser.text('.options-list li:nth-child(2)').should.match(/^Tracked courier service to the UK or British Forces Post Office - £4\.50$/);
+        browser.text('.options-list li:nth-child(3)').should.match(/^Tracked courier service to Europe .*? £12\.50$/);
+        browser.text('.options-list li:nth-child(4)').should.equal('Tracked courier service to the rest of the world - £22');
 
         browser.text('#content header h1').should.equal('Payment to register a death abroad');
+
         browser.select('#transaction_registration_count','2');
         browser.select('#transaction_document_count', '2');
-        browser.select('#transaction_postage', 'Yes');
+        browser.choose('#transaction_postage_option_rest-of-world');
 
         browser.pressButton('Calculate total', function(err){
 
           should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'The cost for 2 registrations and 2 certificates plus postage is £352.50.');
+            'The cost for 2 registrations and 2 certificates plus Tracked courier service to the rest of the world postage is £362.');
 
           done();
         });
@@ -52,14 +56,14 @@ describe("Pay to register a death abroad", function(){
         browser.text('#content header h1').should.equal('Payment to register a death abroad');
         browser.select('#transaction_registration_count','2');
         browser.select('#transaction_document_count', '2');
-        browser.select('#transaction_postage', 'Yes');
+        browser.choose('#transaction_postage_option_uk');
 
         browser.pressButton('Calculate total', function(err){
 
           should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'The cost for 2 registrations and 2 certificates plus postage is £344.50.');
+            'The cost for 2 registrations and 2 certificates plus Tracked courier service to the UK or British Forces Post Office postage is £344.50.');
 
           browser.query("form.epdq-submit").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
           browser.query("form.epdq-submit").method.should.equal("post");

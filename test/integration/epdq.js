@@ -181,7 +181,7 @@ describe("epdq routes", function(){
           .send({ 'transaction' : {
             'registration_count' : '5',
             'document_count' : '5',
-            'postage' : 'yes'
+            'postage_option' : 'uk'
           } })
           .expect(200)
           .end(function(err, res){
