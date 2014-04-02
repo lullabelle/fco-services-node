@@ -11,7 +11,15 @@ describe("Transaction", function(){
       trans.slug.should.equal('pay-register-death-abroad');
       trans.title.should.equal('Payment to register a death abroad');
       trans.document_cost.should.equal(65);
-      trans.postage_cost.should.equal(10);
+      trans.postage_options.length.should.equal(4);
+      trans.postage_options[0].key.should.equal('prepaid');
+      trans.postage_options[0].cost.should.equal(0);
+      trans.postage_options[1].key.should.equal('uk');
+      trans.postage_options[1].cost.should.equal(4.5);
+      trans.postage_options[2].key.should.equal('europe');
+      trans.postage_options[2].cost.should.equal(12.5);
+      trans.postage_options[3].key.should.equal('rest-of-world');
+      trans.postage_options[3].cost.should.equal(22);
       trans.registration.should.be.ok;
       trans.account.should.equal('birth-death-marriage');
     });
