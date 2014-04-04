@@ -25,6 +25,13 @@ exports.config = {
       shaIn : (process.env['epdq_birth_shaIn'] || '00000000000000000000000000000000000000000'),
       shaOut : (process.env['epdq_birth_shaOut'] || '00000000000000000000000000000000000000000'),
       testMode : true
+    },
+    'overseas' : {
+      pspId : (process.env['epdq_overseas_pspid'] || 'pspid'),
+      shaType : 'sha1',
+      shaIn : (process.env['epdq_overseas_shaIn'] || '00000000000000000000000000000000000000000'),
+      shaOut : (process.env['epdq_overseas_shaOut'] || '00000000000000000000000000000000000000000'),
+      testMode : true
     }
   }
 };

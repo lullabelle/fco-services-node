@@ -1,5 +1,4 @@
-var fs = require('fs'),
-    TransactionCalculator = require('./../lib/transaction_calculator');
+var fs = require('fs');
 
 var Transaction = function (opts) {
   var _self = this,
@@ -14,9 +13,6 @@ var Transaction = function (opts) {
 
 Transaction.PARAMPLUS_KEYS = ['document_count', 'postage', 'postage_option', 'registration_count'];
 
-Transaction.prototype.calculateTotal = function (values) {
-  return new TransactionCalculator(this).calculate(values);
-};
 
 Transaction.find = function (id) {
   var transaction;
