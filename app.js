@@ -26,6 +26,11 @@ app.use(partials());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+// preview uses basic auth
+if ('preview' === app.get('env')) {
+  app.use(express.basicAuth(process.env.USERNAME, process.env.PASSWORD));
+}
+
 // development only
 if ('development' === app.get('env')) {
   app.use(express.errorHandler());
