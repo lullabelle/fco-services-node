@@ -38,7 +38,7 @@ describe("epdq routes", function(){
 
       request(app)
         .get('/start')
-        .set('host','pay-register-death-abroad.gov.uk')
+        .set('host','pay-register-death-abroad.service.gov.uk')
         .expect(200)
         .end(function(err, res){
           should.not.exist(err);
@@ -52,10 +52,27 @@ describe("epdq routes", function(){
           done();
         });
     });
-     it("should set the correct expiry headers", function(done){
+    it("should find the appropriate transaction from a preview subdomain structure", function(done){
       request(app)
         .get('/start')
-        .set('host','pay-register-death-abroad.gov.uk')
+        .set('host','www.preview.pay-register-death-abroad.service.gov.uk')
+        .expect(200)
+        .end(function(err, res){
+          should.not.exist(err);
+
+          var renderArgs = Response.render.getCall(0).args;
+          renderArgs[0].should.equal('start');
+          renderArgs[1].journeyDescription.should.equal('pay-register-death-abroad:start');
+
+          res.text.should.match(/Payment to register a death abroad/)
+
+          done();
+        });
+    });
+    it("should set the correct expiry headers", function(done){
+      request(app)
+        .get('/start')
+        .set('host','pay-register-death-abroad.service.gov.uk')
         .expect(200)
         .end(function(err, res){
           should.not.exist(err);
@@ -66,7 +83,7 @@ describe("epdq routes", function(){
     it("should return a 404 if the subdomain does not match a transaction", function(done){
       request(app)
         .get('/start')
-        .set('host','pay-register-a-dog-abroad.gov.uk')
+        .set('host','pay-register-a-dog-abroad.service.gov.uk')
         .expect(404)
         .end(function(err, res){
           should.not.exist(err);
@@ -92,7 +109,7 @@ describe("epdq routes", function(){
 
         request(app)
           .post('/confirm')
-          .set('host','pay-foreign-marriage-certificates.gov.uk')
+          .set('host','pay-foreign-marriage-certificates.service.gov.uk')
           .send({ 'transaction' : { 'document_count' : '0', 'postage' : 'yes' } })
           .expect(200)
           .end(function(err, res){
@@ -113,7 +130,7 @@ describe("epdq routes", function(){
 
         request(app)
           .post('/confirm')
-          .set('host','pay-foreign-marriage-certificates.gov.uk')
+          .set('host','pay-foreign-marriage-certificates.service.gov.uk')
           .send({ 'transaction' : { 'document_count' : '5', 'postage' : 'yes', 'document_type' : 'nya' } })
           .expect(200)
           .end(function(err, res){
@@ -144,7 +161,7 @@ describe("epdq routes", function(){
 
         request(app)
           .post('/confirm')
-          .set('host','pay-foreign-marriage-certificates.gov.uk')
+          .set('host','pay-foreign-marriage-certificates.service.gov.uk')
           .send({ 'transaction' : { 'document_count' : '5', 'postage' : 'yes', 'document_type' : 'nulla-osta' } })
           .expect(200)
           .end(function(err, res){
@@ -160,7 +177,7 @@ describe("epdq routes", function(){
             transaction.registration.should.equal(false);
             transaction.account.should.equal('birth-death-marriage');
 
-            formAttrs['ACCEPTURL'].should.equal('http://pay-foreign-marriage-certificates.gov.uk/done');
+            formAttrs['ACCEPTURL'].should.equal('http://pay-foreign-marriage-certificates.service.gov.uk/done');
             formAttrs['AMOUNT'].should.equal('33500'); // Math.round((65 * 5) + 10) * 100) = 33500
             formAttrs['CURRENCY'].should.equal('GBP');
             formAttrs['LANGUAGE'].should.equal('en_GB');
@@ -177,7 +194,7 @@ describe("epdq routes", function(){
 
         request(app)
           .post('/confirm')
-          .set('host','pay-register-birth-abroad.gov.uk')
+          .set('host','pay-register-birth-abroad.service.gov.uk')
           .send({ 'transaction' : {
             'registration_count' : '5',
             'document_count' : '5',
@@ -198,7 +215,7 @@ describe("epdq routes", function(){
             transaction.registration.should.equal(true);
             transaction.account.should.equal('birth-death-marriage');
 
-            formAttrs['ACCEPTURL'].should.equal('http://pay-register-birth-abroad.gov.uk/done');
+            formAttrs['ACCEPTURL'].should.equal('http://pay-register-birth-abroad.service.gov.uk/done');
             formAttrs['AMOUNT'].should.equal('85450');
             formAttrs['CURRENCY'].should.equal('GBP');
             formAttrs['LANGUAGE'].should.equal('en_GB');
@@ -215,7 +232,7 @@ describe("epdq routes", function(){
     it("returns 404 status if subdomain doesn't match a transaction", function(done){
       request(app)
         .get('/done')
-        .set('host','pay-bear-tax.gov.uk')
+        .set('host','pay-bear-tax.service.gov.uk')
         .expect(404)
         .end(function(err, res){
           should.not.exist(err);
@@ -253,7 +270,7 @@ describe("epdq routes", function(){
               "registration_count" : "4",
               "postage" : "yes"
             })
-            .set('host','pay-register-death-abroad.gov.uk')
+            .set('host','pay-register-death-abroad.service.gov.uk')
             .expect(200)
             .end(function(err, res){
               should.not.exist(err);
@@ -298,7 +315,7 @@ describe("epdq routes", function(){
               "document_count" : "3",
               "postage" : "yes"
             })
-            .set('host','pay-register-death-abroad.gov.uk')
+            .set('host','pay-register-death-abroad.service.gov.uk')
             .expect(200)
             .end(function(err, res){
               should.not.exist(err);
