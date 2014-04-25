@@ -9,17 +9,17 @@
     "postage_options": [
       { "key":"uk",
         "cost":4.5,
-        "label":"Tracked courier service to the UK or British Forces Post Office"
+        "label":"UK address or British Forces Post Office"
       },
       {
         "key":"europe",
         "cost":12.5,
-        "label":"Tracked courier service to Europe (excluding Russia, Turkey, Bosnia, Croatia, Albania, Belarus, Macedonia, Moldova, Montenegro, Ukraine)"
+        "label":"Europe (excluding Russia, Turkey, Bosnia, Croatia, Albania, Belarus, Macedonia, Moldova, Montenegro, Ukraine)"
       },
       {
         "key":"rest-of-world",
         "cost":22,
-        "label":"Tracked courier service to the rest of the world"
+        "label":"Rest of the world"
       }
     ],
     "title":"Payment to register a death abroad"
