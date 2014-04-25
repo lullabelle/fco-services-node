@@ -62,10 +62,9 @@ describe("Pay to register a birth abroad", function(){
         browser.query("#transaction_country").value.should.equal("spain");
 
         browser.text("title").should.equal('Payment to register a birth abroad - GOV.UK');
-        browser.text('.options-list li:first-child').should.equal('Prepaid envelope that you provide (to the UK only) - £0');
-        browser.text('.options-list li:nth-child(2)').should.match(/^Tracked courier service to the UK or British Forces Post Office - £4\.50$/);
-        browser.text('.options-list li:nth-child(3)').should.match(/^Tracked courier service to Europe .*? £12\.50$/);
-        browser.text('.options-list li:nth-child(4)').should.equal('Tracked courier service to the rest of the world - £22');
+        browser.text('.options-list li:first-child').should.match(/^Tracked courier service to the UK or British Forces Post Office - £4\.50$/);
+        browser.text('.options-list li:nth-child(2)').should.match(/^Tracked courier service to Europe .*? £12\.50$/);
+        browser.text('.options-list li:nth-child(3)').should.equal('Tracked courier service to the rest of the world - £22');
 
 
         browser.text('#content header h1').should.equal('Payment to register a birth abroad');
