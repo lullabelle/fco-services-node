@@ -54,7 +54,7 @@ describe("Pay to register a birth abroad", function(){
       });
     });
     describe("start with birth country parameter", function(){
-      it("render the transaction intro page and generate the payment form when 'Calculate total' is clicked", function(done){
+      it("renders the transaction intro page and generates the payment form", function(done){
         browser.visit("/start?country=spain", {}, function(err){
 
         should.not.exist(err);
@@ -96,23 +96,23 @@ describe("Pay to register a birth abroad", function(){
       });
     });
   });
- });
   describe("/done", function(){
     it("should show the completed transaction", function(done){
       browser.visit("/done?orderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MR%20MICKEY%20MOUSE&TRXDATE=03%2F11%2F13&PAYID=12345678&NCERROR=0&BRAND=VISA&SHASIGN=6ACE8B0C8E0B427137F6D7FF86272AA570255003&document_count=3&registration_count=4&postage=yes",
         {}, function(err){
           should.not.exist(err);
           var doneText = browser.text('.article-container .inner');
-          doneText.should.match(/You have paid for 4 registrations and 3 certificates, plus postage./);
-          doneText.should.match(/Your payment reference is 12345678/);
+
+          doneText.should.match(/You have paid for 4 birth registrations and 3 certificates, plus postage./);
+          doneText.should.match(/Your online payment reference is 12345678/);
 
           var finishedButton = browser.query('.inner section.done a');
           finishedButton.getAttribute('href').should.equal('https://www.gov.uk/done/pay-register-birth-abroad');
           finishedButton.innerHTML.should.equal('Finished');
 
           done();
+        });
       });
     });
   });
-
 });

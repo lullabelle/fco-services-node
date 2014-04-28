@@ -1,9 +1,13 @@
 <% var epdqParams = epdqResponse.parameters(); -%>
+<p class="summary">You have completed your payment to the Foreign &amp; Commonwealth Office (FCO).</p>
 
-<p>Your payment to the Foreign &amp; Commonwealth Office is complete.</p>
+<p>You have paid for <%= pluralise("death registration", registrationCount(epdqParams)) %> and <%= pluralise("certificate", documentCount(epdqParams)) %><% if (epdqParams['postage'] == 'yes'){ %>, plus postage<% } -%>.</p>
 
-<p>You have paid for <%= pluralise("registration", registrationCount(epdqParams)) %> and <%= pluralise("certificate", documentCount(epdqParams)) %><% if (epdqParams['postage'] == 'yes'){ %>, plus postage<% } %>.</p>
+<p>Your online payment reference is <%= epdqParams['payid'] %>. You must:</p>
 
-<p>Your payment reference is <%= epdqParams['payid'] %>.</p>
+<ul>
+  <li>write the payment reference on your application form</li>
+  <li>print out this page and include it with your application</li>
+</ul>
 
-<p>Print this page and send it, along with your <%= pluralise("certificate", documentCount(epdqParams)) %>, application form and supporting documents listed on the form, to the Foreign &amp; Commonwealth Office (FCO). The address is on the form.</p>
+<p>Send your application form and documents to the <abbr title="Foreign &amp; Commonwealth Office">FCO</abbr>. The address is on the form.</p>

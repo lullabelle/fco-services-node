@@ -88,8 +88,8 @@ describe("Pay to register a death abroad", function(){
         {}, function(err){
           should.not.exist(err);
           var doneText = browser.text('.article-container .inner');
-          doneText.should.match(/You have paid for 4 registrations and 3 certificates, plus postage./);
-          doneText.should.match(/Your payment reference is 12345678/);
+          doneText.should.match(/You have paid for 4 death registrations and 3 certificates, plus postage./);
+          doneText.should.match(/Your online payment reference is 12345678/);
 
           var finishedButton = browser.query('.article-container .inner section.done a.transaction-done');
           finishedButton.getAttribute('href').should.equal('https://www.gov.uk/done/pay-register-death-abroad');
