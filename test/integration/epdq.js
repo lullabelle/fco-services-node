@@ -288,7 +288,7 @@ describe("epdq routes", function(){
               epdqParams['registration_count'].should.equal('4');
               epdqParams['postage'].should.equal('yes');
               journeyDescription.should.equal('pay-register-death-abroad:done');
-              res.text.should.match(/You have paid for 4 registrations and 3 certificates, plus postage/);
+              res.text.should.match(/You have paid for 4 death registrations and 3 certificates, plus postage/);
 
               done();
             });
