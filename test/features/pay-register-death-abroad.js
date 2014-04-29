@@ -24,10 +24,9 @@ describe("Pay to register a death abroad", function(){
         browser.query("input#transaction_country").value.should.equal('usa');
 
         browser.text("title").should.equal('Payment to register a death abroad - GOV.UK');
-        browser.text('.options-list li:first-child').should.equal('Prepaid envelope that you provide (to the UK only) - £0');
-        browser.text('.options-list li:nth-child(2)').should.match(/^Tracked courier service to the UK or British Forces Post Office - £4\.50$/);
-        browser.text('.options-list li:nth-child(3)').should.match(/^Tracked courier service to Europe .*? £12\.50$/);
-        browser.text('.options-list li:nth-child(4)').should.equal('Tracked courier service to the rest of the world - £22');
+        browser.text('.options-list li:first-child').should.match(/^UK address or British Forces Post Office - £4\.50$/);
+        browser.text('.options-list li:nth-child(2)').should.match(/^Europe .*? £12\.50$/);
+        browser.text('.options-list li:nth-child(3)').should.equal('Rest of the world - £22');
 
         browser.text('#content header h1').should.equal('Payment to register a death abroad');
 
@@ -40,7 +39,7 @@ describe("Pay to register a death abroad", function(){
           should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'The cost for 2 registrations and 2 certificates plus Tracked courier service to the rest of the world postage is £362.');
+            'The cost for 2 registrations and 2 certificates plus Rest of the world postage is £362.');
 
           done();
         });
@@ -63,7 +62,7 @@ describe("Pay to register a death abroad", function(){
           should.not.exist(err);
 
           browser.text('#content .article-container .inner p:first-child').should.equal(
-            'The cost for 2 registrations and 2 certificates plus Tracked courier service to the UK or British Forces Post Office postage is £344.50.');
+            'The cost for 2 registrations and 2 certificates plus UK address or British Forces Post Office postage is £344.50.');
 
           browser.query("form.epdq-submit").action.should.match(/https:\/\/mdepayments\.epdq\.co\.uk/);
           browser.query("form.epdq-submit").method.should.equal("post");
@@ -89,8 +88,8 @@ describe("Pay to register a death abroad", function(){
         {}, function(err){
           should.not.exist(err);
           var doneText = browser.text('.article-container .inner');
-          doneText.should.match(/You have paid for 4 registrations and 3 certificates, plus postage./);
-          doneText.should.match(/Your payment reference is 12345678/);
+          doneText.should.match(/You have paid for 4 death registrations and 3 certificates, plus postage./);
+          doneText.should.match(/Your online payment reference is 12345678/);
 
           var finishedButton = browser.query('.article-container .inner section.done a.transaction-done');
           finishedButton.getAttribute('href').should.equal('https://www.gov.uk/done/pay-register-death-abroad');
