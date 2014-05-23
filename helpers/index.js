@@ -45,8 +45,12 @@ var registrationsAndCertificates = function (params) {
   return phrases.join(' and ');
 };
 
-var pageTitle = function (transaction) {
-  return transaction.title + ' - GOV.UK';
+var pageTitle = function (obj) {
+  var title = 'GOV.UK';
+  if (typeof obj !== 'undefined') {
+    title = obj.title + ' - ' + title;
+  }
+  return title;
 };
 
 module.exports = function (app) {
