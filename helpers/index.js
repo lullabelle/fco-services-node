@@ -45,10 +45,10 @@ var registrationsAndCertificates = function (params) {
   return phrases.join(' and ');
 };
 
-var pageTitle = function (obj) {
+var formatPageTitle = function (pageTitle) {
   var title = 'GOV.UK';
-  if (typeof obj !== 'undefined') {
-    title = obj.title + ' - ' + title;
+  if (typeof pageTitle !== 'undefined') {
+    title = pageTitle + ' - ' + title;
   }
   return title;
 };
@@ -65,7 +65,7 @@ module.exports = function (app) {
 
   // govuk_template vars
   app.locals.topOfPage = '';
-  app.locals.pageTitle = pageTitle;
+  app.locals.formatPageTitle = formatPageTitle;
   app.locals.assetPath = '/';
   app.locals.bodyClasses = 'mainstream';
   app.locals.headerClass = '';

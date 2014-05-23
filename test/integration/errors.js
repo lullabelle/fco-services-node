@@ -19,8 +19,8 @@ describe("A non existant route", function () {
 describe("An internal server error", function () {
   it("should respond with the 500 page", function(done){
     request(app)
-      .get("/done")
-      .set('host','pay-register-death-abroad.service.gov.uk')
+      .post('/confirm')
+      .set('host','pay-register-birth-abroad.service.gov.uk')
       .expect(500)
       .end(function(err, res){
         should.not.exist(err);
