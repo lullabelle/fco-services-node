@@ -45,8 +45,12 @@ var registrationsAndCertificates = function (params) {
   return phrases.join(' and ');
 };
 
-var pageTitle = function (transaction) {
-  return transaction.title + ' - GOV.UK';
+var formatPageTitle = function (pageTitle) {
+  var title = 'GOV.UK';
+  if (typeof pageTitle !== 'undefined') {
+    title = pageTitle + ' - ' + title;
+  }
+  return title;
 };
 
 module.exports = function (app) {
@@ -61,7 +65,7 @@ module.exports = function (app) {
 
   // govuk_template vars
   app.locals.topOfPage = '';
-  app.locals.pageTitle = pageTitle;
+  app.locals.formatPageTitle = formatPageTitle;
   app.locals.assetPath = '/';
   app.locals.bodyClasses = 'mainstream';
   app.locals.headerClass = '';

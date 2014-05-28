@@ -34,6 +34,9 @@ app.use(partials());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(routes.errors.error404);
+app.use(routes.errors.error500);
+
 // development only
 if ('development' === app.get('env')) {
   app.use(express.errorHandler());
