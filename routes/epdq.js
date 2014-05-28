@@ -23,7 +23,7 @@ module.exports = {
   middlewares : [ setExpiry, TransactionService.findTransaction ],
 
   rootRedirect : function (req, res) {
-    res.redirect('https://www.gov.uk/' + res.locals.transaction.slug);
+    res.redirect(req.url + 'start');
   },
 
   /**
