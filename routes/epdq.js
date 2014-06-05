@@ -23,7 +23,7 @@ module.exports = {
   middlewares : [ setExpiry, TransactionService.findTransaction ],
 
   rootRedirect : function (req, res) {
-    res.redirect('https://www.gov.uk/' + res.locals.transaction.slug);
+    res.redirect(req.url + 'start');
   },
 
   /**
@@ -67,10 +67,15 @@ module.exports = {
    * GET /done
    */
   done : function (req, res) {
-    var epdqResponse = new EPDQ.Response(req.query, res.locals.transaction.account, Transaction.PARAMPLUS_KEYS);
-    if (epdqResponse.isValidShasign()) {
-      res.render('done', { epdqResponse: epdqResponse, journeyDescription: journeyDescription(res, 'done') });
-    } else {
+    try {
+      var epdqResponse = new EPDQ.Response(req.query, res.locals.transaction.account, Transaction.PARAMPLUS_KEYS);
+
+      if (epdqResponse.isValidShasign()) {
+        res.render('done', { epdqResponse: epdqResponse, journeyDescription: journeyDescription(res, 'done') });
+      } else {
+        throw new Error('Invalid SHASIGN');
+      }
+    } catch (e) {
       res.render('payment_error', { journeyDescription: journeyDescription(res, 'payment_error') });
     }
   }

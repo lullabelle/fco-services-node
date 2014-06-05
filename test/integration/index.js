@@ -11,7 +11,7 @@ describe("GET /", function(){
       .expect(302)
       .end(function(err, res){
         should.not.exist(err);
-        res.text.should.equal("Moved Temporarily. Redirecting to https://www.gov.uk/pay-register-birth-abroad");
+        res.text.should.equal("Moved Temporarily. Redirecting to /start");
       });
   });
 });
