@@ -65,6 +65,7 @@
       </div>
     </div>
 
+    <%- partial('partials/_cookie_message') %>
 
     <header role="banner" id="global-header" class="<%= headerClass %>">
       <div class="header-wrapper">
@@ -86,13 +87,12 @@
     </header>
     <!--end header-->
 
-
     <%= afterHeader %>
 
-    <div id="global-cookie-message">
-
-        <%= cookieMessage %>
-
+    <div id="global-header-bar">
+      <div class="inner-block">
+        <div class="header-bar"></div>
+      </div>
     </div>
 
     <%- partial('partials/_content', { body: body, journeyDescription: journeyDescription }) %>
