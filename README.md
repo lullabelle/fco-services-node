@@ -6,7 +6,7 @@ This app contains transaction start and done pages for the FCO payment transacti
 
 ## Routing
 
-This application uses subdomain based routing to route to the individual transactions.  The start page for the transactions can be found at `<slug>.*/start` (e.g. with development config below they're at `<slug>.service.dev.gov.uk/start`).  The available slugs can be found in `lib/transactions.json`.
+This application uses subdomain based routing to route to the individual transactions.  The start page for the transactions can be found at `<slug>.*/start` (e.g. with development config below they're at `<slug>.dev.gov.uk/start`).  The available slugs can be found in `lib/transactions.json`.
 
 ## Development configuration
 
@@ -14,15 +14,15 @@ This application uses subdomain based routing to route to the individual transac
 
     ```
 
-      127.0.0.1   pay-legalisation-drop-off.service.dev.gov.uk
+      127.0.0.1   pay-legalisation-drop-off.dev.gov.uk
 
-      127.0.0.1   pay-legalisation-post.service.dev.gov.uk
+      127.0.0.1   pay-legalisation-post.dev.gov.uk
 
-      127.0.0.1   pay-register-birth-abroad.service.dev.gov.uk
+      127.0.0.1   pay-register-birth-abroad.dev.gov.uk
 
-      127.0.0.1   pay-register-death-abroad.service.dev.gov.uk
+      127.0.0.1   pay-register-death-abroad.dev.gov.uk
 
-      127.0.0.1   pay-foreign-marriage-certificates.service.dev.gov.uk
+      127.0.0.1   pay-foreign-marriage-certificates.dev.gov.uk
 
     ```
   2. Export/Start the app with the appropriate environment variables to configure ePDQ transactions. These are:
@@ -37,7 +37,7 @@ This application uses subdomain based routing to route to the individual transac
 
       ```$ epdq_legalisation_post_pspid=foo epdq_legalisation_post_shaIn=bar epdq_legalisation_post_shaOut=baz node app.js```
 
-      [http://pay-register-birth-abroad.service.dev.gov.uk:1337/start](http://pay-register-birth-abroad.service.dev.gov.uk:1337/start)
+      [http://pay-register-birth-abroad.dev.gov.uk:1337/start](http://pay-register-birth-abroad.dev.gov.uk:1337/start)
 
 ## Tests
 
