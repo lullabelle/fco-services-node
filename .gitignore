@@ -13,7 +13,4 @@ logs
 results
 build
 .grunt
-
-!node_modules/
-node_modules/*
-!node_modules/epdq
+node_modules
