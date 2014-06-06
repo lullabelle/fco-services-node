@@ -65,6 +65,8 @@
       </div>
     </div>
 
+    <%- partial('partials/_cookie_message') %>
+
     <header role="banner" id="global-header" class="<%= headerClass %>">
       <div class="header-wrapper">
         <div class="header-global">
@@ -85,14 +87,7 @@
     </header>
     <!--end header-->
 
-
     <%= afterHeader %>
-
-    <div id="global-cookie-message">
-
-        <%= cookieMessage %>
-
-    </div>
 
     <div id="global-header-bar">
       <div class="inner-block">
