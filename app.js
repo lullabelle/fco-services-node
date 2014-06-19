@@ -26,6 +26,12 @@ var helpers = require('./helpers')(app);
 app.set('port', process.env.PORT || 1337);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+app.enable('trust proxy');
+// Azure doesn't provide the request headers expected by Express
+// so use a custom middleware to provide the correct headers.
+app.use(routes.azureSecureMiddleware);
+
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
@@ -33,7 +39,6 @@ app.use(express.methodOverride());
 app.use(partials());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(routes.errors.error404);
 app.use(routes.errors.error500);
 
