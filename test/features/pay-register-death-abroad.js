@@ -46,7 +46,7 @@ describe("Pay to register a death abroad", function(){
       });
     });
     it("renders the transaction intro page and generates the payment form when 'Calculate total' is clicked", function(done){
-      browser.visit("/start", {}, function(err){
+      browser.visit("/start", { headers: { 'x-arr-ssl' : 'true' } }, function(err){
 
         should.not.exist(err);
 
@@ -73,7 +73,7 @@ describe("Pay to register a death abroad", function(){
           browser.field("input[name='AMOUNT']").should.exist;
           browser.field("input[name='CURRENCY']").should.exist;
           browser.field("input[name='LANGUAGE']").should.exist;
-          browser.field("input[name='ACCEPTURL']").should.exist;
+          browser.field("input[name='ACCEPTURL']").value.should.match(/^https:/);
 
           browser.button("Pay").should.exist;
 
