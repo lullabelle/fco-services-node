@@ -4,6 +4,7 @@
 
 var express = require('express'),
     routes = require('./routes'),
+    helmet = require('helmet'),
     http = require('http'),
     path = require('path'),
     partials  = require('express-partials');
@@ -17,6 +18,10 @@ if ('preview' === app.get('env')) {
       (username === process.env.BASIC_AUTH_USERNAME && password === process.env.BASIC_AUTH_PASSWORD));
   }));
 }
+
+app.use(helmet.xframe('deny'));
+// HSTS Header with maxAge of 1 year.
+app.use(helmet.hsts({ maxAge : 31536000, includeSubdomains: true }));
 
 /* jshint ignore:start */
 var helpers = require('./helpers')(app);
