@@ -3,6 +3,7 @@
  */
 
 var express = require('express'),
+    expressEnforcesSsl = require('express-enforces-ssl'),
     routes = require('./routes'),
     helmet = require('helmet'),
     http = require('http'),
@@ -11,6 +12,14 @@ var express = require('express'),
 
 var app = express();
 
+app.use(helmet.xframe('deny'));
+// HSTS Header with maxAge of 1 year.
+app.use(helmet.hsts({ maxAge : 31536000, includeSubdomains: true }));
+
+if ('development' !== app.get('env')) {
+  app.use(expressEnforcesSsl());
+}
+
 // preview uses basic auth
 if ('preview' === app.get('env')) {
   app.use(express.basicAuth(function (username, password, callback) {
@@ -18,10 +27,6 @@ if ('preview' === app.get('env')) {
       (username === process.env.BASIC_AUTH_USERNAME && password === process.env.BASIC_AUTH_PASSWORD));
   }));
 }
-
-app.use(helmet.xframe('deny'));
-// HSTS Header with maxAge of 1 year.
-app.use(helmet.hsts({ maxAge : 31536000, includeSubdomains: true }));
 
 /* jshint ignore:start */
 var helpers = require('./helpers')(app);

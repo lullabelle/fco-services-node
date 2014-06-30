@@ -18,6 +18,7 @@
     "ejs": "0.8.5",
     "epdq": "git://github.com/alphagov/epdq_npm.git#gds_master",
     "express": "3.4.8",
+    "express-enforces-ssl": "1.1.0",
     "express-partials": "0.2.0",
     "helmet" : "0.3.1",
     "numeral": "1.5.3",
