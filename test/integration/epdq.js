@@ -69,6 +69,19 @@ describe("epdq routes", function(){
           done();
         });
     });
+    it("should set strict-transport-security and x-frame-options headers", function(done){
+      request(app)
+        .get('/start')
+        .set('x-forwarded-proto', 'https')
+        .set('host','pay-register-death-abroad.service.gov.uk')
+        .expect(200)
+        .end(function(err, res){
+          should.not.exist(err);
+          res.headers['x-frame-options'].should.equal('DENY');
+          res.headers['strict-transport-security'].should.equal('max-age=31536; includeSubdomains');
+          done();
+        });
+    });;
     it("should set the correct expiry headers", function(done){
       request(app)
         .get('/start')
@@ -114,6 +127,8 @@ describe("epdq routes", function(){
           .expect(200)
           .end(function(err, res){
             should.not.exist(err);
+
+            res.headers['x-frame-options'].should.equal('DENY');
 
             var renderArgs = Response.render.lastCall.args;
             renderArgs[1].errors.should.equal('Invalid document count');
@@ -279,6 +294,8 @@ describe("epdq routes", function(){
                   epdqParams = epdqResponse.parameters(),
                   journeyDescription = renderArgs[1].journeyDescription,
                   transaction = renderArgs[1]._locals.transaction;
+
+              res.headers['x-frame-options'].should.equal('DENY');
 
               transaction.title.should.equal("Payment to register a death abroad");
               transaction.slug.should.equal("pay-register-death-abroad");

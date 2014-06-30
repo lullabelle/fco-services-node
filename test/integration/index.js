@@ -37,12 +37,18 @@ describe("running in the preview environment", function() {
       .get("/")
       .expect(401);
   });
-  it("should authenticate using credentials from environment vars", function() {
+  it("should authenticate using credentials from environment vars and redirect to a secure URL", function() {
     var basicAuthVal = 'Basic' + new Buffer('foobar').toString('base64') +
       ':' + new Buffer('barfoo').toString('base64');
     request(app)
       .get("/")
       .set('authorization', basicAuthVal)
-      .expect(200);
+      .expect(301)
+      .end(function(err, res){
+        should.not.exist(err);
+        res.text.should.match(/Moved Permanently/);
+        res.headers['location'].should.equal('https://' + res.req._headers.host + res.req.path);
+      });
+
   });
 });
