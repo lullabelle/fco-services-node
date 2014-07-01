@@ -12,13 +12,19 @@ var express = require('express'),
 
 var app = express();
 
+app.enable('trust proxy');
+// Azure doesn't provide the request headers expected by Express
+// so use a custom middleware to provide the correct headers.
+app.use(routes.azureSecureMiddleware);
+
+
 app.use(helmet.xframe('deny'));
 // HSTS Header with maxAge of 1 year.
 app.use(helmet.hsts({ maxAge : 31536000, includeSubdomains: true }));
 
-//if ('development' !== app.get('env')) {
-//  app.use(expressEnforcesSsl());
-//}
+if ('development' !== app.get('env')) {
+  app.use(expressEnforcesSsl());
+}
 
 // preview uses basic auth
 //if ('preview' === app.get('env')) {
@@ -36,11 +42,6 @@ var helpers = require('./helpers')(app);
 app.set('port', process.env.PORT || 1337);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
-app.enable('trust proxy');
-// Azure doesn't provide the request headers expected by Express
-// so use a custom middleware to provide the correct headers.
-app.use(routes.azureSecureMiddleware);
 
 app.use(express.logger('dev'));
 app.use(express.json());
