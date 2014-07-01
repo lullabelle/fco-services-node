@@ -16,9 +16,9 @@ app.use(helmet.xframe('deny'));
 // HSTS Header with maxAge of 1 year.
 app.use(helmet.hsts({ maxAge : 31536000, includeSubdomains: true }));
 
-if ('development' !== app.get('env')) {
-  app.use(expressEnforcesSsl());
-}
+//if ('development' !== app.get('env')) {
+//  app.use(expressEnforcesSsl());
+//}
 
 // preview uses basic auth
 //if ('preview' === app.get('env')) {
