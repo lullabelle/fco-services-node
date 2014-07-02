@@ -1,7 +1,6 @@
 /**
  * Module dependencies.
  */
-
 var express = require('express'),
     expressEnforcesSsl = require('express-enforces-ssl'),
     routes = require('./routes'),
