@@ -20,7 +20,7 @@
     "express": "3.4.8",
     "express-enforces-ssl": "1.1.0",
     "express-partials": "0.2.0",
-    "helmet" : "0.3.1",
+    "helmet" : "0.3.2",
     "numeral": "1.5.3",
     "pluralize": "0.0.7",
     "qs": "0.6.6"
