@@ -18,12 +18,6 @@ function color_prompt() {
   echo -e -n '\n\n'
 }
 
-function ensure_master() {
-  color_prompt "Changing to master branch and pulling latest"
-  # git checkout master
-  git pull
-}
-
 function delete_node_modules() {
   color_prompt "$RED Deleting $MAGENTA node_modules directory"
   rm -rf node_modules
@@ -58,7 +52,6 @@ function add_local_vars_to_content_partial() {
 }
 
 main () {
-  ensure_master
   delete_node_modules
   install_modules
   copy_assets
