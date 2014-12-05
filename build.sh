@@ -52,12 +52,18 @@ function copy_templates() {
   mv views/govuk_template.html views/layout.ejs
 }
 
+function add_local_vars_to_content_partial() {
+  color_prompt "Adding local variables to content partial"
+  sed -i '' "s|<%- partial('partials/_content') %>|<%- partial('partials/_content', { body: body, journeyDescription: journeyDescription }) %>|g" views/layout.ejs
+}
+
 main () {
   ensure_master
   delete_node_modules
   install_modules
   copy_assets
   copy_templates
+  add_local_vars_to_content_partial
 }
 
 main
