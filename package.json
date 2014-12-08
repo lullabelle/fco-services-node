@@ -23,8 +23,8 @@
     "helmet" : "0.3.2",
     "numeral": "1.5.3",
     "pluralize": "0.0.7",
-    "qs": "0.6.6"
-
+    "qs": "0.6.6",
+    "govuk_template_ejs": "0.11.0"
   },
   "devDependencies": {
     "jshint": "2.4.3",
