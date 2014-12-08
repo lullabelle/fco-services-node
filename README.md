@@ -10,21 +10,18 @@ This application uses subdomain based routing to route to the individual transac
 
 ## Development configuration
 
+> Note: this section assumes you are running the app on your local machine and not your development VM.
+
   1. Edit ```/etc/hosts``` and add the following entries:
 
-    ```
+```
+127.0.0.1   pay-legalisation-drop-off.dev.gov.uk
+127.0.0.1   pay-legalisation-post.dev.gov.uk
+127.0.0.1   pay-register-birth-abroad.dev.gov.uk
+127.0.0.1   pay-register-death-abroad.dev.gov.uk
+127.0.0.1   pay-foreign-marriage-certificates.dev.gov.uk
+```
 
-      127.0.0.1   pay-legalisation-drop-off.dev.gov.uk
-
-      127.0.0.1   pay-legalisation-post.dev.gov.uk
-
-      127.0.0.1   pay-register-birth-abroad.dev.gov.uk
-
-      127.0.0.1   pay-register-death-abroad.dev.gov.uk
-
-      127.0.0.1   pay-foreign-marriage-certificates.dev.gov.uk
-
-    ```
   2. Export/Start the app with the appropriate environment variables to configure ePDQ transactions. These are:
 
       ```epdq_birth_pspid``` - the pre-shared merchant key for ePDQ (birth-death-marriage) transactions.
@@ -42,3 +39,9 @@ This application uses subdomain based routing to route to the individual transac
 ## Tests
 
 ```$ npm test```
+
+## Running the app
+
+```$ npm start```
+
+
