@@ -1,0 +1,13 @@
+@import "grid_layout.scss";
+
+#wrapper {
+  @extend %site-width-container;
+}
+
+#content {
+  @extend %grid-row;
+}
+.page-header,
+.article-container {
+  @include grid-column(2/3);
+}
