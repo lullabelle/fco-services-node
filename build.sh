@@ -51,12 +51,20 @@ function add_local_vars_to_content_partial() {
   sed -i '' "s|<%- partial('partials/_content') %>|<%- partial('partials/_content', { body: body, journeyDescription: journeyDescription }) %>|g" views/layout.ejs
 }
 
+function compile_scss() {
+  color_prompt "Compiling SASS files to CSS"
+  ./node_modules/node-sass/bin/node-sass --include-path="node_modules/govuk_frontend_toolkit/stylesheets" "assets/sass/application.scss" "public/stylesheets/application.css"
+}
+
+
+
 main () {
   delete_node_modules
   install_modules
   copy_assets
   copy_templates
   add_local_vars_to_content_partial
+  compile_scss
 }
 
 main
