@@ -42,6 +42,22 @@ This application uses subdomain based routing to route to the individual transac
 
 ## Running the app
 
+First run the build script:
+
+```$ ./build```
+
+This will update npm dependencies, integrate [govuk_template](https://github.com/alphagov/govuk_template) views into the main app, and build application styling.
+
+You can then run the app with:
+
 ```$ npm start```
 
 
+## Making changes
+
+After updating `npm` dependencies, or changing SCSS files, you will need to run `./build` and then commit the changes into git.
+
+To test manually test/view the `done` pages, which depend on some complex parameters returned by the payment provider, you can use the [example paramaters from the integration test](test/integration/epdq.js#L271-L286), for example:
+```
+http://pay-register-birth-abroad.dev.gov.uk:1337/done?OrderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MR%20MICKEY%20MOUSE&TRXDATE=03%2F11%2F13&PAYID=12345678&NCERROR=0&BRAND=VISA&SHASIGN=6ACE8B0C8E0B427137F6D7FF86272AA570255003&document_count=3&registration_count=4&postage=yes
+```
