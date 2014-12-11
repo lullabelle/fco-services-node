@@ -64,14 +64,11 @@ module.exports = function (app) {
   app.locals.registrationsAndCertificates = registrationsAndCertificates;
 
   // govuk_template vars
-  app.locals.topOfPage = '';
-  app.locals.formatPageTitle = formatPageTitle;
   app.locals.assetPath = '/';
-  app.locals.bodyClasses = 'mainstream';
+  app.locals.bodyClasses = '';
+  app.locals.formatPageTitle = formatPageTitle;
+  app.locals.govukRoot = 'https://gov.uk';
+  app.locals.govukTemplateAssetPath = 'govuk_template/';
   app.locals.headerClass = '';
-  app.locals.insideHeader = '';
-  app.locals.propositionHeader = '';
-  app.locals.afterHeader = '';
-  app.locals.bodyEnd = '';
-  app.locals.govukRoot = 'https://www.gov.uk';
+  app.locals.htmlLang = 'en';
 };

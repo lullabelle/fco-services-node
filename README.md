@@ -10,21 +10,18 @@ This application uses subdomain based routing to route to the individual transac
 
 ## Development configuration
 
+> Note: this section assumes you are running the app on your local machine and not your development VM.
+
   1. Edit ```/etc/hosts``` and add the following entries:
 
-    ```
+```
+127.0.0.1   pay-legalisation-drop-off.dev.gov.uk
+127.0.0.1   pay-legalisation-post.dev.gov.uk
+127.0.0.1   pay-register-birth-abroad.dev.gov.uk
+127.0.0.1   pay-register-death-abroad.dev.gov.uk
+127.0.0.1   pay-foreign-marriage-certificates.dev.gov.uk
+```
 
-      127.0.0.1   pay-legalisation-drop-off.dev.gov.uk
-
-      127.0.0.1   pay-legalisation-post.dev.gov.uk
-
-      127.0.0.1   pay-register-birth-abroad.dev.gov.uk
-
-      127.0.0.1   pay-register-death-abroad.dev.gov.uk
-
-      127.0.0.1   pay-foreign-marriage-certificates.dev.gov.uk
-
-    ```
   2. Export/Start the app with the appropriate environment variables to configure ePDQ transactions. These are:
 
       ```epdq_birth_pspid``` - the pre-shared merchant key for ePDQ (birth-death-marriage) transactions.
@@ -42,3 +39,25 @@ This application uses subdomain based routing to route to the individual transac
 ## Tests
 
 ```$ npm test```
+
+## Running the app
+
+First run the build script:
+
+```$ ./build```
+
+This will update npm dependencies, integrate [govuk_template](https://github.com/alphagov/govuk_template) views into the main app, and build application styling.
+
+You can then run the app with:
+
+```$ npm start```
+
+
+## Making changes
+
+After updating `npm` dependencies, or changing SCSS files, you will need to run `./build` and then commit the changes into git.
+
+To test manually test/view the `done` pages, which depend on some complex parameters returned by the payment provider, you can use the [example paramaters from the integration test](test/integration/epdq.js#L271-L286), for example:
+```
+http://pay-register-birth-abroad.dev.gov.uk:1337/done?OrderID=test&currency=GBP&amount=45&PM=CreditCard&ACCEPTANCE=test123&STATUS=5&CARDNO=XXXXXXXXXXXX1111&CN=MR%20MICKEY%20MOUSE&TRXDATE=03%2F11%2F13&PAYID=12345678&NCERROR=0&BRAND=VISA&SHASIGN=6ACE8B0C8E0B427137F6D7FF86272AA570255003&document_count=3&registration_count=4&postage=yes
+```
