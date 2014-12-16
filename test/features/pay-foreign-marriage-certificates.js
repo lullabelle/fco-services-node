@@ -21,9 +21,6 @@ describe("Payment for certificates to get married abroad", function(){
         should.not.exist(err);
 
         browser.text("title").should.equal('Payment for certificates to get married abroad - GOV.UK');
-        var homeBreadcrumb = browser.query("ol[role='breadcrumbs'] li:first-child a");
-        homeBreadcrumb.getAttribute('href').should.equal('https://www.gov.uk/');
-        homeBreadcrumb.innerHTML.should.equal('Home');
 
         browser.text('.options-list li:first-child').should.equal('Certificate of no impediment');
         browser.text('.options-list li:last-child').should.equal('Nulla Osta');
